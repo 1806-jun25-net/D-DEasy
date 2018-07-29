@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DandDEasy_WEB
+namespace DandDEasy.Services
 {
     public partial class CharacterClasses
     {
