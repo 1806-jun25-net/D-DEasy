@@ -21,14 +21,18 @@ namespace DandDEasy.Services.Controllers
 
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            var user = Repo.GetUsertable();
-            var TheUser = user.FirstOrDefault(x => x.FirstName == "Wesley");
-            return new string[] { $"Name: {TheUser.FirstName}" + $" Last Name: {TheUser.LastName}" + $" Username: {TheUser.Username}"
-                + $" Registration Date: {TheUser.RegistrationDate}"};
-        } // Print in webpage
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    var user = Repo.GetUsertable();
+        //    var TheUser = user.FirstOrDefault(x => x.FirstName == "Wesley");
+        //    return new string[] { $"Name: {TheUser.FirstName}" + $" Last Name: {TheUser.LastName}" + $" Username: {TheUser.Username}"
+        //        + $" Registration Date: {TheUser.RegistrationDate}"};
+        //} // Print in webpage
 
 
         /*[HttpGet]
