@@ -11,36 +11,37 @@ namespace DandDEasy.Services.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class CharacterCampaignController : ControllerBase
     {
         // private readonly DnDEasyContext _context;
         public CharacterRepo Repo{ get; set; }
         public UserRepo URepo { get; set; }
+        public CampaignRepo CRepo { get; set; }
 
-        public CharacterCampaignController(CharacterRepo repo, UserRepo urepo)
+        public CharacterCampaignController(CharacterRepo repo, UserRepo urepo, CampaignRepo crepo)
         {
             // _context = context;
             Repo = repo;
-            urepo = urepo;
-
+            URepo = urepo;
+            CRepo = crepo;
         }
 
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult Index(string name, string password) // get here after the log in authentication is succesfull
-        //{
+        [HttpGet]
+        public CharacterCampaign Index(string name, string password) // get here after the log in authentication is succesfull
+        {
+            var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name && x.Password == password); // Get all user
+            var userid = user.Id; // get User ID
+            var character = Repo.GetCharactertable().Where(x => x.UserId == userid); // Get all Character from the user
+            var campaign = CRepo.GetCampaignTable().ToList(); // Get all campaign
 
-        //    var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name && x.Password == password);
-        //    var userid = user.Id;
-        //    var character = Repo.GetCharactertable().Where(x => x.UserId == userid);
-            
-        //    CharacterCampaign charac = new CharacterCampaign
-        //    {
-        //        CHA = character
-                
-        //    };
+            CharacterCampaign charac = new CharacterCampaign
+            {
+                CHA = character,
+                CAM = campaign
+            };
 
-        //    return charac;
-        //}
+            return charac;
+        }
     }
 }

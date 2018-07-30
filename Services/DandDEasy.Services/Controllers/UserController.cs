@@ -28,7 +28,7 @@ namespace DandDEasy.Services.Controllers
         [Authorize]
         public IEnumerable<User> GetUserTable()
         {
-            var username = User?.Identity?.Name;
+            //var username = User?.Identity?.Name;
             var user = Repo.GetUsertable();
             return user;
         }
