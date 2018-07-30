@@ -1,4 +1,5 @@
 ﻿using DandDEasy.Services.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DandDEasy.Services.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -21,7 +22,16 @@ namespace DandDEasy.Services.Controllers
 
         }
 
-
+        
+        [HttpGet]
+        //[AllowAnonymous]
+        [Authorize]
+        public IEnumerable<User> GetUserTable()
+        {
+            var username = User?.Identity?.Name;
+            var user = Repo.GetUsertable();
+            return user;
+        }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////

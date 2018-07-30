@@ -58,6 +58,7 @@ namespace DandDEasy.Services
 
             services.ConfigureApplicationCookie(options =>
             {
+                options.Cookie.Name = "DnDAut";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 options.Events = new CookieAuthenticationEvents
                 {
@@ -98,6 +99,7 @@ namespace DandDEasy.Services
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
