@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DandDEasy_WEB
+namespace DandDEasy_WEB.Models
 {
     public partial class Class
     {
@@ -11,9 +13,14 @@ namespace DandDEasy_WEB
         }
 
         public int Id { get; set; }
+        [Required]
+        [StringLength(20)]
         public string ClassName { get; set; }
+        [Required]
+        [StringLength(10)]
         public string HitDice { get; set; }
 
+        [InverseProperty("Class")]
         public ICollection<CharacterClasses> CharacterClasses { get; set; }
     }
 }
