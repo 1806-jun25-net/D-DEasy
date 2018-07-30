@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>917e4ab4-a0fa-4cd3-bfa6-de4ed80468e5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,12 +10,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.6" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.6" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Swashbuckle" Version="5.6.0" />
-    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
-    <PackageReference Include="WebActivatorEx" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
 </Project>

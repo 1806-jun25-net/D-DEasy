@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DandDEasy_WEB.Models
+namespace DandDEasy_WEB
 {
     public partial class Character
     {
@@ -15,15 +13,10 @@ namespace DandDEasy_WEB.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public int? CampaignId { get; set; }
-        [Column(TypeName = "date")]
         public DateTime? CreationDate { get; set; }
-        [StringLength(50)]
         public string Name { get; set; }
-        [StringLength(50)]
         public string Race { get; set; }
-        [StringLength(50)]
         public string Background { get; set; }
-        [StringLength(20)]
         public string Alignment { get; set; }
         public int? Experience { get; set; }
         public int? Strength { get; set; }
@@ -35,15 +28,9 @@ namespace DandDEasy_WEB.Models
         public int? HitPoints { get; set; }
         public int? ArmorClass { get; set; }
 
-        [ForeignKey("CampaignId")]
-        [InverseProperty("Character")]
         public Campaign Campaign { get; set; }
-        [ForeignKey("UserId")]
-        [InverseProperty("Character")]
         public User User { get; set; }
-        [InverseProperty("Character")]
         public CampaignGraveyard CampaignGraveyard { get; set; }
-        [InverseProperty("Character")]
         public ICollection<CharacterClasses> CharacterClasses { get; set; }
     }
 }
