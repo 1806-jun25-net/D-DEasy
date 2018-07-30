@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using DandDEasy_WEB.Models;
 
 namespace DandDEasy_WEB
 {
