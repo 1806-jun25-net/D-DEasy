@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DandDEasy_WEB
+namespace DandDEasy_WEB.Models
 {
     public partial class User
     {
