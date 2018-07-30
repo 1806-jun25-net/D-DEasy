@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DandDEasy_WEB.Models
+namespace DandDEasy_WEB
 {
     public partial class CampaignGraveyard
     {
@@ -11,11 +9,7 @@ namespace DandDEasy_WEB.Models
         public int? CampaignId { get; set; }
         public int? CharacterId { get; set; }
 
-        [ForeignKey("CampaignId")]
-        [InverseProperty("CampaignGraveyard")]
         public Campaign Campaign { get; set; }
-        [ForeignKey("CharacterId")]
-        [InverseProperty("CampaignGraveyard")]
         public Character Character { get; set; }
     }
 }
