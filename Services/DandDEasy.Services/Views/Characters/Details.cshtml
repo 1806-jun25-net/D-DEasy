@@ -1,0 +1,114 @@
+﻿@model DandDEasy.Services.Character
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Character</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Race)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Race)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Background)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Background)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Alignment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alignment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Experience)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Experience)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Strength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Strength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dexterity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dexterity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Constitution)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Constitution)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Intelligence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Intelligence)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Wisdom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Wisdom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Charisma)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Charisma)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HitPoints)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HitPoints)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArmorClass)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArmorClass)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Campaign)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Campaign.Password)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

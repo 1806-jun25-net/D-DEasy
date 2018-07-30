@@ -15,6 +15,16 @@ namespace DandDEasy_WEB.Controllers
             return View();
         }
 
+        public IActionResult GameInfo()
+        {
+            return View();
+        }
+
+        public IActionResult GameTut()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

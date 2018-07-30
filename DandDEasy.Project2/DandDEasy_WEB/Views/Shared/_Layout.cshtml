@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DandDEasy_WEB</title>
+    <title>@ViewData["Title"] - DandDEasy</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,13 +26,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">DandDEasy_WEB</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">DandDEasy</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="GameInfo">Game Information</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="GameTut">Game Rules</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    <li><a asp-area="" asp-controller="CampaignGraveyards" asp-action="">Graveyards</a></li>
+                    <li><a asp-area="" asp-controller="Campaigns" asp-action="">Campaigns</a></li>
+                    <li><a asp-area="" asp-controller="CharacterClasses" asp-action="">CharacterClasses</a></li>
+                    <li><a asp-area="" asp-controller="Characters" asp-action="">Characters</a></li>
+                    <li><a asp-area="" asp-controller="Classes" asp-action="">Classes</a></li>
+                    <li><a asp-area="" asp-controller="Users" asp-action="">Users</a></li>
                 </ul>
             </div>
         </div>
@@ -44,7 +55,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - DandDEasy_WEB</p>
+            <p>&copy; 2018 - DandDEasy_Revature</p>
         </footer>
     </div>
 

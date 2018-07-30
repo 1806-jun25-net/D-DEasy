@@ -1,16 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using DandDEasy_WEB.Models;
 
-namespace DandDEasy_WEB.Models
+namespace DandDEasy_WEB
 {
-    public partial class DnDContext : DbContext
+    public partial class DnDEasyContext : DbContext
     {
-        public DnDContext()
+        public DnDEasyContext()
         {
         }
 
-        public DnDContext(DbContextOptions<DnDContext> options)
+        public DnDEasyContext(DbContextOptions<DnDEasyContext> options)
             : base(options)
         {
         }
@@ -26,8 +27,6 @@ namespace DandDEasy_WEB.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:schull-1806.database.windows.net,1433;Initial Catalog=DnDEasy;Persist Security Info=False;User ID=varnathin;Password=Kronehand2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -35,11 +34,19 @@ namespace DandDEasy_WEB.Models
         {
             modelBuilder.Entity<Campaign>(entity =>
             {
-                entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Password).IsUnicode(false);
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Title).IsUnicode(false);
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.DungeonMaster)
                     .WithMany(p => p.Campaign)
@@ -67,17 +74,23 @@ namespace DandDEasy_WEB.Models
 
             modelBuilder.Entity<Character>(entity =>
             {
-                entity.Property(e => e.Alignment).IsUnicode(false);
+                entity.Property(e => e.Alignment)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.ArmorClass).HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Background).IsUnicode(false);
+                entity.Property(e => e.Background)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Charisma).HasDefaultValueSql("((8))");
 
                 entity.Property(e => e.Constitution).HasDefaultValueSql("((8))");
 
-                entity.Property(e => e.CreationDate).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Dexterity).HasDefaultValueSql("((8))");
 
@@ -87,9 +100,13 @@ namespace DandDEasy_WEB.Models
 
                 entity.Property(e => e.Intelligence).HasDefaultValueSql("((8))");
 
-                entity.Property(e => e.Name).IsUnicode(false);
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Race).IsUnicode(false);
+                entity.Property(e => e.Race)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Strength).HasDefaultValueSql("((8))");
 
@@ -128,9 +145,15 @@ namespace DandDEasy_WEB.Models
                     .HasName("UQ__Class__F8BF561BE6A422C2")
                     .IsUnique();
 
-                entity.Property(e => e.ClassName).IsUnicode(false);
+                entity.Property(e => e.ClassName)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.HitDice).IsUnicode(false);
+                entity.Property(e => e.HitDice)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -139,17 +162,33 @@ namespace DandDEasy_WEB.Models
                     .HasName("UQ__User__536C85E4A5A278AC")
                     .IsUnique();
 
-                entity.Property(e => e.Email).IsUnicode(false);
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.FirstName).IsUnicode(false);
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.LastName).IsUnicode(false);
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Password).IsUnicode(false);
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.RegistrationDate).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.RegistrationDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Username).IsUnicode(false);
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
             });
         }
     }
