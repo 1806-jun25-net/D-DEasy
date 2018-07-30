@@ -11,9 +11,9 @@ namespace DandDEasy_WEB.Controllers
 {
     public class CampaignGraveyardsController : Controller
     {
-        private readonly DnDContext _context;
+        private readonly DnDEasyContext _context;
 
-        public CampaignGraveyardsController(DnDContext context)
+        public CampaignGraveyardsController(DnDEasyContext context)
         {
             _context = context;
         }

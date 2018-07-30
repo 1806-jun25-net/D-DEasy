@@ -11,9 +11,9 @@ namespace DandDEasy_WEB.Controllers
 {
     public class CharactersController : Controller
     {
-        private readonly DnDContext _context;
+        private readonly DnDEasyContext _context;
 
-        public CharactersController(DnDContext context)
+        public CharactersController(DnDEasyContext context)
         {
             _context = context;
         }
