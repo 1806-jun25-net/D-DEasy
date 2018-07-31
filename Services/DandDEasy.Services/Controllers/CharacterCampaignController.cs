@@ -11,7 +11,6 @@ namespace DandDEasy.Services.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
     public class CharacterCampaignController : ControllerBase
     {
         // private readonly DnDEasyContext _context;
@@ -28,9 +27,11 @@ namespace DandDEasy.Services.Controllers
         }
 
         [HttpGet]
-        public CharacterCampaign Index(string name, string password) // get here after the log in authentication is succesfull
+        [Authorize]
+        public CharacterCampaign MainPage() // get here after the log in authentication is succesfull
         {
-            var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name && x.Password == password); // Get all user
+            string name = "Varnathin";
+            var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name); // Get all user
             var userid = user.Id; // get User ID
             var character = Repo.GetCharactertable().Where(x => x.UserId == userid); // Get all Character from the user
             var campaign = CRepo.GetCampaignTable().ToList(); // Get all campaign

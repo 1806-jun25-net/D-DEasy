@@ -1,18 +1,191 @@
-﻿@*@model DandDEasy_WEB.Models.CharacterCampaign
+﻿@model DandDEasy_WEB.Models.CharacterCampaign
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 aligment="center" >Welcome to Dungeons and Dragons</h2>
+
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+    }
+
+    .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+</style>
+
 
 <div>
-    <h4>CharacterCampaign</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
+    <table class="table">
+        <caption>Characters</caption>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Race
+                </th>
+                <th>
+                    Alignment
+                </th>
+                <th>
+                    Experience
+                </th>
+                <th>
+                    Strength
+                </th>
+                <th>
+                    Dexterity
+                </th>
+                <th>
+                    Constitution
+                </th>
+                <th>
+                    Intelligence
+                </th>
+                <th>
+                    Wisdom
+                </th>
+                <th>
+                    Charisma
+                </th>
+                <th>
+                    HitPoints
+                </th>
+                <th>
+                    ArmorClass
+                </th>
+                <th>
+                    CampaignId
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CHA)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Race)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Alignment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Experience)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Strength)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dexterity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Constitution)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Intelligence)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Wisdom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Charisma)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HitPoints)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArmorClass)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <button class="button button2"> New Charater</button>
+    </div>
+
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <table class="table">
+        <caption>Campaign</caption>
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Password
+                </th>
+                <th>
+                    Dungeon Master ID
+                </th>
+                <th>
+                    Creation Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CAM)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DungeonMasterId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <div>
+            <button class="button button2"> New Campaign </button>
+        </div>
+    </div>
+    <div>
     <a asp-action="Index">Back to List</a>
-</div>*@
+    </div>
+    
+</div>

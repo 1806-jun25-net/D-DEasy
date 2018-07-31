@@ -19,8 +19,8 @@ namespace DandDEasy_WEB.Controllers
         public async Task<ActionResult> Index()
         {
 
-
-            var request = CreateRequestToService(HttpMethod.Get, "api/CharacterCampaign/Index");
+            
+            var request = CreateRequestToService(HttpMethod.Get, "api/CharacterCampaign/MainPage");
 
             try
             {
