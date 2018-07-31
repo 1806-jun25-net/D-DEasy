@@ -24,8 +24,8 @@ namespace DandDEasy.Services.Controllers
 
         
         [HttpGet]
-        //[AllowAnonymous]
-        [Authorize]
+        [AllowAnonymous]
+        //[Authorize]
         public IEnumerable<User> GetUserTable()
         {
             //var username = User?.Identity?.Name;
