@@ -39,8 +39,8 @@ namespace DandDEasy.Services.Controllers
 
             CharacterCampaign charac = new CharacterCampaign
             {
-                CHA = character,
-                CAM = campaign
+               // CHA = character,
+                //CAM = campaign
             };
 
             return charac;
