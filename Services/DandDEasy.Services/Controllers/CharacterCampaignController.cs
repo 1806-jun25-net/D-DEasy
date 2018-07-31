@@ -26,20 +26,21 @@ namespace DandDEasy.Services.Controllers
             CRepo = crepo;
         }
 
+
         [HttpGet]
-        [Authorize]
-        public CharacterCampaign MainPage() // get here after the log in authentication is succesfull
+        //[Authorize]
+        public ActionResult<CharacterCampaign> MainPage() // get here after the log in authentication is succesfull
         {
-            string name = "Varnathin";
+            string name = "Wesley";
             var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name); // Get all user
             var userid = user.Id; // get User ID
-            var character = Repo.GetCharactertable().Where(x => x.UserId == userid); // Get all Character from the user
+            var character = Repo.GetCharactertable().Where(x => x.UserId == userid).ToList(); // Get all Character from the user
             var campaign = CRepo.GetCampaignTable().ToList(); // Get all campaign
 
             CharacterCampaign charac = new CharacterCampaign
             {
-                CHA = character,
-                CAM = campaign
+               // CHA = character,
+                //CAM = campaign
             };
 
             return charac;
