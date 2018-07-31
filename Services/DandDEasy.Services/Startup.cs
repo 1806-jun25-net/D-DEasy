@@ -35,7 +35,10 @@ namespace DandDEasy.Services
 
             services.AddDbContext<DnDEasyContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DnDEasy")));
+
             services.AddScoped<UserRepo>();
+            services.AddScoped<CharacterRepo>();
+            services.AddScoped<CampaignRepo>();
 
             services.AddDbContext<IdentityDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DnDAut"),
@@ -94,13 +97,8 @@ namespace DandDEasy.Services
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
