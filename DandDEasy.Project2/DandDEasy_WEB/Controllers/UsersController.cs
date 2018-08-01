@@ -6,23 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DandDEasy_WEB.Models;
+using System.Net.Http;
 
 namespace DandDEasy_WEB.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly DnDEasyContext _context;
-
-        public UsersController(DnDEasyContext context)
-        {
-            _context = context;
-        }
+        public UsersController(HttpClient httpClient) : base(httpClient)
+        { }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public ViewResult Index()
         {
-            return View(await _context.User.ToListAsync());
+            return View();
         }
+        
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.User.ToListAsync());
+        //}
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
