@@ -32,6 +32,8 @@ namespace DandDEasy_WEB
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+
             services.AddSingleton(sp =>
                 new HttpClient(new HttpClientHandler { UseCookies = false }));
 
@@ -41,6 +43,7 @@ namespace DandDEasy_WEB
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,6 +57,7 @@ namespace DandDEasy_WEB
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseDeveloperExceptionPage();
 
             app.UseMvc(routes =>
             {

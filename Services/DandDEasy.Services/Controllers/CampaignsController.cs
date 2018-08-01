@@ -99,7 +99,7 @@ namespace DandDEasy.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            string name = "Varnathin";
+            string name = "Wesley";
             var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name);
             var userid = user.Id;
 
