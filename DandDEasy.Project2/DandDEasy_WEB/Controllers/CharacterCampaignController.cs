@@ -33,7 +33,7 @@ namespace DandDEasy_WEB.Controllers
 
                 string jsonString = await response.Content.ReadAsStringAsync();
 
-                IEnumerable<CharacterCampaign> characterCampaigns = JsonConvert.DeserializeObject<IEnumerable<CharacterCampaign>>(jsonString);
+                CharacterCampaign characterCampaigns = JsonConvert.DeserializeObject<CharacterCampaign>(jsonString);
 
                 return View(characterCampaigns);
             }

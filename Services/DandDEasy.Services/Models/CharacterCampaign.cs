@@ -7,7 +7,7 @@ namespace DandDEasy.Services.Models
 {
     public class CharacterCampaign
     {
-        public IEnumerable<Character> CHA { get; set; }
-        public IEnumerable<Campaign> CAM { get; set; }
+        public IEnumerable<Character2> CHA { get; set; }
+        public IEnumerable<Campaign2> CAM { get; set; }
     }
 }

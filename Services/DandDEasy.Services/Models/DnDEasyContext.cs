@@ -1,4 +1,5 @@
 ﻿using System;
+using DandDEasy.Services.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
