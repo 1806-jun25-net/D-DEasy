@@ -72,7 +72,15 @@ namespace DandDEasy_WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(Login account)
         {
-            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Account/Login", account);
+
+            User credentials = new User //Prepare the data for the HomePage service
+            {
+                FirstName = account.Username,
+                Password = account.Password
+            };
+
+
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Account/Login", account); // Go to login in API
 
             HttpResponseMessage apiResponse;
             try
@@ -95,7 +103,7 @@ namespace DandDEasy_WEB.Controllers
 
             PassCookiesToClient(apiResponse);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "CharacterCampaign", credentials); // Use the prepare data, Send credentials to the Homepage method in API
         }
 
         // GET: Account/Logout

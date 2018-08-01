@@ -29,10 +29,10 @@ namespace DandDEasy.Services.Controllers
 
         [HttpGet]
         //[Authorize]
-        public ActionResult<CharacterCampaign> MainPage() // get here after the log in authentication is succesfull
+        public ActionResult<CharacterCampaign> MainPage(User credentials) // get here after the log in authentication is succesfull
         {
-            string name = "Wesley";
-            var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name); // Get all user
+            var credentials2 = "Wesley";
+            var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == credentials2/*.FirstName && x.Password == credentials2.Password*/); // Get all user
             var userid = user.Id; // get User ID
             var character = Repo.GetCharactertable().Where(x => x.UserId == userid).ToList(); // Get all Character from the user
             var campaign = CRepo.GetCampaignTable().ToList(); // Get all campaign
