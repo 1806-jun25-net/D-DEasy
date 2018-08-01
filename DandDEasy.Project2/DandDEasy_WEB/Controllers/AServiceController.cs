@@ -12,7 +12,8 @@ namespace DandDEasy_WEB.Controllers
 {
     public class AServiceController : Controller
     {
-        private static readonly Uri s_serviceUri = new Uri("https://danddeasyapi.azurewebsites.net");
+
+        private static readonly Uri s_serviceUri = new Uri("http://localhost:50145");
         protected static readonly string s_CookieName = "DnDAut";
 
         protected HttpClient HttpClient { get; }

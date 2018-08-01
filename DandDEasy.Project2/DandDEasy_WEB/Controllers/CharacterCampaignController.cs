@@ -16,11 +16,11 @@ namespace DandDEasy_WEB.Controllers
         { }
 
         // GET: CharacterCampaign
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(User credentials)
         {
 
             
-            var request = CreateRequestToService(HttpMethod.Get, "api/CharacterCampaign/MainPage");
+            var request = CreateRequestToService(HttpMethod.Get, "api/CharacterCampaign/MainPage", credentials);
 
             try
             {
