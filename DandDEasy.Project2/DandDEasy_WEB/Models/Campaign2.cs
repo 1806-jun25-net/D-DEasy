@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DandDEasy.Services.Models
 {
-    public class Campaign2
+    public partial class Campaign2
     {
         public int Id { get; set; }
         public string Title { get; set; }

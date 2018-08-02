@@ -35,6 +35,12 @@ namespace DandDEasy_WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(Login account)
         {
+            User credentials = new User //Prepare the data for the HomePage service
+            {
+                FirstName = account.Username,
+                Password = account.Password
+            };
+
             if (!ModelState.IsValid)
             {
                 return View("Error");
@@ -59,7 +65,7 @@ namespace DandDEasy_WEB.Controllers
 
             PassCookiesToClient(apiResponse);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("InsertUser", "User", credentials);
         }
 
         // GET: Account/Login

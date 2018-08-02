@@ -4,11 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h2 aligment="center" >Welcome to Dungeons and Dragons</h2>
+
+
 
 <style>
     .button {
-        background-color: #4CAF50; /* Green */
+        background-color: #d89200; /* Green */
         border: none;
         color: white;
         padding: 15px 32px;
@@ -25,167 +26,209 @@
     .button2:hover {
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
     }
+
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid black;
+            padding: 8px;
+            align-content:center;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #9f4000;
+            color: white;
+        }
+    #caption {
+        color: black;
+        align-self: center;
+    }
+
+
 </style>
+<body style="background-image: url(https://images3.alphacoders.com/152/152779.jpg);background-repeat: no-repeat;background-size: cover;">
+    <div style="background-color: black; margin: 4% -2% 0% -2%">
+        <div style="border: inset; background-color: lightgray">
+            <div align="center" style="background-image: url(http://kinderhooklibrary.org/wp-content/uploads/2017/09/dnd-logo.jpg);background-repeat: no-repeat;background-size: cover;width: 1050px;height: 300px; margin-left: 5%;"><h1 aligment="center" style="color: white;"></h1></div>
+            <div>
+                <h2>Characters</h2>
+                <table id="customers">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Race
+                            </th>
+                            <th>
+                                Alignment
+                            </th>
+                            <th>
+                                Experience
+                            </th>
+                            <th>
+                                Strength
+                            </th>
+                            <th>
+                                Dexterity
+                            </th>
+                            <th>
+                                Constitution
+                            </th>
+                            <th>
+                                Intelligence
+                            </th>
+                            <th>
+                                Wisdom
+                            </th>
+                            <th>
+                                Charisma
+                            </th>
+                            <th>
+                                HitPoints
+                            </th>
+                            <th>
+                                ArmorClass
+                            </th>
+                            <th>
 
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CHA)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Race)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Alignment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Experience)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Strength)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Dexterity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Constitution)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Intelligence)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Wisdom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Charisma)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HitPoints)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ArmorClass)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-<div>
-    <table class="table">
-        <caption>Characters</caption>
-        <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Race
-                </th>
-                <th>
-                    Alignment
-                </th>
-                <th>
-                    Experience
-                </th>
-                <th>
-                    Strength
-                </th>
-                <th>
-                    Dexterity
-                </th>
-                <th>
-                    Constitution
-                </th>
-                <th>
-                    Intelligence
-                </th>
-                <th>
-                    Wisdom
-                </th>
-                <th>
-                    Charisma
-                </th>
-                <th>
-                    HitPoints
-                </th>
-                <th>
-                    ArmorClass
-                </th>
-                <th>
-                    CampaignId
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.CHA)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Race)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Alignment)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Experience)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Strength)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dexterity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Constitution)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Intelligence)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Wisdom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Charisma)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HitPoints)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArmorClass)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                <div>
+                    <button class="button button2"> New Charater</button>
+                </div>
 
-    <div>
-        <button class="button button2"> New Charater</button>
-    </div>
+            </div>
+            <div>
+                <div></div>
+                <h2>Campaign</h2>
+                <table id="customers">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Password
+                            </th>
+                            <th>
+                                Dungeon Master ID
+                            </th>
+                            <th>
+                                Creation Date
+                            </th>
+                            <th>
 
-</div>
-<div>
-    <table class="table">
-        <caption>Campaign</caption>
-        <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Password
-                </th>
-                <th>
-                    Dungeon Master ID
-                </th>
-                <th>
-                    Creation Date
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.CAM)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Password)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DungeonMasterId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreationDate)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div>
-        <div>
-            <button class="button button2"> New Campaign </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CAM)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Password)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DungeonMasterId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div>
+                    <div>
+                        <input type="button" class="button button2" value="Create Campaign" onclick="location.href='@Url.Action("CreateCam", "Campaigns")'" />
+                    </div>
+                </div>
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-    <a asp-action="Index">Back to List</a>
-    </div>
-    
-</div>
+</body>

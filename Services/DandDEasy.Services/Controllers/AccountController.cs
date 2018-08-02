@@ -13,10 +13,12 @@ namespace DandDEasy.Services.Controllers
     public class AccountController : ControllerBase
     {
         private SignInManager<IdentityUser> _signInManager { get; }
+        private readonly DnDEasyContext _db;
 
-        public AccountController(SignInManager<IdentityUser> signInManager)
+        public AccountController(SignInManager<IdentityUser> signInManager, DnDEasyContext db)
         {
             _signInManager = signInManager;
+            _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
         [HttpPost]

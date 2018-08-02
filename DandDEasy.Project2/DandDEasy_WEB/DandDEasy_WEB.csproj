@@ -16,8 +16,15 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\CharacterCampaign\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
   <PropertyGroup>
     <DebugType>Full</DebugType>
+    <UserSecretsId>a63584da-a5a5-46c2-9d63-1149f6f8cdab</UserSecretsId>
   </PropertyGroup>
 
 </Project>

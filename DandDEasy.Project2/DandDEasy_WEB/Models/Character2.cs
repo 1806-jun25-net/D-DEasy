@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DandDEasy.Services.Models
 {
-    public class Character2
+    public partial class Character2
     {
         public int Id { get; set; }
         public int UserId { get; set; }

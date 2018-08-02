@@ -28,5 +28,21 @@ namespace DandDEasy.Services.Repo
             return user;
 
         }
+
+        public void InsertUser(User credentials)
+        {
+            User theuser = new User
+            {
+                Username = "",
+                FirstName = credentials.FirstName,
+                Password = credentials.Password,
+                LastName = "",
+                Email = "",
+                RegistrationDate = DateTime.Now
+                
+            };
+            _db.Add(theuser);
+            _db.SaveChanges();
+        }
     }
 }

@@ -42,5 +42,29 @@ namespace DandDEasy_WEB.Controllers
             }
         }
 
+        public async Task<ActionResult> InsertUser(User credentials)
+        {
+
+            var request = CreateRequestToService(HttpMethod.Post, "api/user/insertuser", credentials); // Call insert method in the API
+
+            try
+            {
+                var response = await HttpClient.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return View("Error");
+                }
+
+
+                return RedirectToAction("Login", "Account");
+            }
+            catch (HttpRequestException ex)
+            {
+                // logging
+                return View("Error");
+            }
+        }
+
     }
 }

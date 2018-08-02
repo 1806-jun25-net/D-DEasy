@@ -29,6 +29,39 @@ namespace DandDEasy.Services.Repo
             return character;
         }
 
+        public Character2 GetCharactertByID(int id) // get all character of user
+        {
+            var x = _db.Character.FirstOrDefault(y => y.Id == id);
+
+            if (x == null)
+            {
+                return null;
+            }
+            else
+            {
+                Character2 thecharacter = new Character2
+                {
+                    UserId = x.UserId,
+                    Id = x.Id,
+                    Name = x.Name,
+                    Alignment = x.Alignment,
+                    ArmorClass = x.ArmorClass,
+                    Background = x.Background,
+                    CampaignId = x.CampaignId,
+                    Charisma = x.Charisma,
+                    Constitution = x.Constitution,
+                    CreationDate = x.CreationDate,
+                    Dexterity = x.Dexterity,
+                    Experience = x.Experience,
+                    HitPoints = x.HitPoints,
+                    Intelligence = x.Intelligence,
+                    Race = x.Race,
+                    Strength = x.Strength,
+                    Wisdom = x.Wisdom
+                };
+                return thecharacter;
+            }
+        }
 
     }
 }

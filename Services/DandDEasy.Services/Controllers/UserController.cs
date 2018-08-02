@@ -33,6 +33,15 @@ namespace DandDEasy.Services.Controllers
             return user;
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        //[Authorize]
+        public void InsertUser(User credentials)
+        {
+            Repo.InsertUser(credentials);
+          
+        }
+
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////

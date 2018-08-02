@@ -14,7 +14,7 @@ namespace DandDEasy.Services.Controllers
     public class CharacterCampaignController : ControllerBase
     {
         // private readonly DnDEasyContext _context;
-        public CharacterRepo Repo{ get; set; }
+        public CharacterRepo Repo { get; set; }
         public UserRepo URepo { get; set; }
         public CampaignRepo CRepo { get; set; }
 
@@ -39,24 +39,25 @@ namespace DandDEasy.Services.Controllers
 
             //List<Character2> loschara = new List<Character2>();
 
-                IEnumerable<Character2> character2 = character.Select(x => new Character2
-                {
-                    Name = x.Name,
-                    Alignment = x.Alignment,
-                    ArmorClass = x.ArmorClass,
-                    Background = x.Background,
-                    CampaignId = x.CampaignId,
-                    Charisma = x.Charisma,
-                    Constitution = x.Constitution,
-                    CreationDate = x.CreationDate,
-                    Dexterity = x.Dexterity,
-                    Experience = x.Experience,
-                    HitPoints = x.HitPoints,
-                    Intelligence = x.Intelligence,
-                    Race = x.Race,
-                    Strength = x.Strength,
-                    Wisdom = x.Wisdom
-                });
+            IEnumerable<Character2> character2 = character.Select(x => new Character2
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Alignment = x.Alignment,
+                ArmorClass = x.ArmorClass,
+                Background = x.Background,
+                CampaignId = x.CampaignId,
+                Charisma = x.Charisma,
+                Constitution = x.Constitution,
+                CreationDate = x.CreationDate,
+                Dexterity = x.Dexterity,
+                Experience = x.Experience,
+                HitPoints = x.HitPoints,
+                Intelligence = x.Intelligence,
+                Race = x.Race,
+                Strength = x.Strength,
+                Wisdom = x.Wisdom
+            });
 
             IEnumerable<Campaign2> campaign2 = campaign.Select(x => new Campaign2
             {
@@ -71,8 +72,8 @@ namespace DandDEasy.Services.Controllers
 
             CharacterCampaign charac = new CharacterCampaign
             {
-               CHA = character2,
-               CAM = campaign2
+                CHA = character2,
+                CAM = campaign2
             };
 
             return charac;
