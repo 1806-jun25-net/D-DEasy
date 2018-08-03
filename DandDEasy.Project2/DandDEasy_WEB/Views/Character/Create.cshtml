@@ -1,0 +1,143 @@
+﻿@model DandDEasy_WEB.Models.Character
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Character Creation</h2>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="UserId" class="control-label"></label>
+            <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="CampaignId" class="control-label"></label>
+            <select asp-for="CampaignId" class ="form-control" asp-items="ViewBag.CampaignId"></select>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"><strong>What is your name?</strong></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Race" class="control-label"></label>
+            <input asp-for="Race" class="form-control" />
+            <span asp-validation-for="Race" class="text-danger"></span>
+        </div>*@
+            <div>
+                <label asp-for="Race" class="control-label">What is your lineage?</label>
+                <p>
+                    Every race has a unique origin, and each one provides
+                    your character with additional strengths and weaknesses based on both your racial culture and
+                    the biological makeup of the race, such as Dragonborn having a breath attack or High Elves knowing
+                    one spell of their choosing, regardless of whether or not they are a caster.
+                </p>
+                @Html.DropDownList("Race",
+                 new SelectList(Enum.GetValues(typeof(Races))),
+                 "Select Race",
+                 new { @class = "form-control" })
+            </div>
+            <br />
+            <div>
+                <label asp-for="Background" class="control-label">What is your background?</label>
+                <p>
+                    Your character's background typically involves
+                    what they used to do prior to their adventures. Were they once a proud noble, a seasoned
+                    veteran, a mischevious charlatan, or a devious criminal?
+                </p>
+                @Html.DropDownList("Background",
+                 new SelectList(Enum.GetValues(typeof(Backgrounds))),
+                 "Select Background",
+                 new { @class = "form-control" })
+            </div>
+            <br />
+            <div>
+                <label asp-for="Alignment" class="control-label">What is your alignment?</label>
+                <p>
+                    Your alignment is determined by your character's behavior (not the other way around!).
+                    These alignments are on a two-dimensional spectrum, so you choose where you fall.
+                    Chaotic means you're more likely to do as you need, lawful means you abide by a code of
+                    some sort (law or personal creed), and neutral means you tend to do, typically, what's in
+                    your best interest. Good, neutral and evil are pretty self-explanatory.
+                </p>
+                @Html.DropDownList("Alignment",
+                 new SelectList(Enum.GetValues(typeof(Alignments))),
+                 "Select Alignment",
+                 new { @class = "form-control" })
+            </div>
+            <br />
+            <div>
+                <label asp-for="Alignment" class="control-label">Experience Points, Ability Scores, and Other Stats</label>
+                <table id="AbilityScores">
+                    <thead>
+                        <tr>
+                            <th><strong>STAT</strong></th>
+                            <th><strong>SCORE</strong></th>
+                            <th><strong>MOD</strong></th>
+                            <th><strong>PROF</strong></th>
+                            <th><strong>SAVE</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>STR</strong></td>
+                            <td><input asp-for="Strength" class="form-control" inputmode="numeric" id="str_txtbx"/></td>
+                            <td><p></p></td>
+                            <td><p>class prof</p></td>
+                            <td><p>save math</p></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DEX</strong></td>
+                            <td><input asp-for="Dexterity" class="form-control" inputmode="numeric" /></td>
+                            <td><p>mod math</p></td>
+                            <td><p>class prof</p></td>
+                            <td><p>save math</p></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CON</strong></td>
+                            <td><input asp-for="Constitution" class="form-control" inputmode="numeric" /></td>
+                            <td><p>mod math</p></td>
+                            <td><p>class prof</p></td>
+                            <td><p>save math</p></td>
+                        </tr>
+                        <tr>
+                            <td><strong>INT</strong></td>
+                            <td><input asp-for="Intelligence" class="form-control" inputmode="numeric" /></td>
+                            <td><p>mod math</p></td>
+                            <td><p>class prof</p></td>
+                            <td><p>save math</p></td>
+                        </tr>
+                        <tr>
+                            <td><strong>WIS</strong></td>
+                            <td><input asp-for="Wisdom" class="form-control" inputmode="numeric" /></td>
+                            <td><p>mod math</p></td>
+                            <td><p>class prof</p></td>
+                            <td><p>save math</p></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHA</strong></td>
+                            <td><input asp-for="Charisma" class="form-control" inputmode="numeric" /></td>
+                            <td></td>
+                            <td><p>class prof</p></td>
+                            <td><p>save math</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <input type="submit" value="Create" class="btn btn-default" />
+        </form>
+    </div>
+    
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

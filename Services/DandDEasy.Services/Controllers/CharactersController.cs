@@ -24,12 +24,13 @@ namespace DandDEasy.Services.Controllers
             Repo = repo;
         }
 
-        //// GET: Characters
-        //public async Task<IActionResult> Index()
-        //{
-        //    var dnDEasyContext = Repo.Character.Include(c => c.Campaign).Include(c => c.User);
-        //    return View(await dnDEasyContext.ToListAsync());
-        //}
+        // GET: Characters
+        [HttpGet]
+        public IEnumerable<Character2> Index()
+        {
+            var dnDEasyContext = Repo.GetCharactertable();
+            return dnDEasyContext;
+        }
 
         // GET: Characters/Details/5
         [HttpGet("{id}")]
