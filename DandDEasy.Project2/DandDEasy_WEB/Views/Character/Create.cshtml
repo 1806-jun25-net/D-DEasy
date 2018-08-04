@@ -4,6 +4,14 @@
     ViewData["Title"] = "Create";
 }
 
+<script>
+    function calcChaMod()
+    {
+        document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2)
+    }
+
+</script>
+
 <h2>Character Creation</h2>
 <hr />
 <div class="row">
@@ -71,7 +79,78 @@
             </div>
             <br />
             <div>
-                <label asp-for="Alignment" class="control-label">Experience Points, Ability Scores, and Other Stats</label>
+                <label asp-for="Experience" class="control-label">Experience Points:</label>
+                <input asp-for="Experience" class="form-control" inputmode="numeric" id="exp_pts" min="0" value="0" />
+                <script id="calc_level">
+                    var exp = document.getElementById("exp_pts").innerHTML;
+                    var level = 0;
+                    document.getElementById("exp_pts").addEventListener("change", function(){
+                        switch(exp){
+                            case (exp < 300):
+                                level = 1;
+                            case (300 < exp && exp < 900):
+                                level = 2;
+                            case (900 < exp && exp < 2700):
+                                level = 3;
+                            case (2700 < exp && exp < 6500):
+                                level = 4;
+                            case (6500 < exp && exp < 14000):
+                                level = 5;
+                            case (14000 < exp && exp < 23000):
+                                level = 6;
+                            case (23000 < exp && exp < 34000):
+                                level = 7;
+                            case (34000 < exp && exp < 48000):
+                                level = 8;
+                            case (48000 < exp && exp < 64000):
+                                level = 9;
+                            case (64000 < exp && exp < 85000):
+                                level = 10;
+                            case (85000 < exp && exp < 100000):
+                                level = 11;
+                            case (100000 < exp && exp < 120000):
+                                level = 12;
+                            case (120000 < exp && exp < 140000):
+                                level = 13;
+                            case (140000 < exp && exp < 165000):
+                                level = 14;
+                            case (165000 < exp && exp < 195000):
+                                level = 15;
+                            case (195000 < exp && exp < 225000):
+                                level = 16;
+                            case (225000 < exp && exp < 265000):
+                                level = 17;
+                            case (265000 < exp && exp < 305000):
+                                level = 18;
+                            case (305000 < exp && exp < 355000):
+                                level = 19;
+                            case (355000 < exp):
+                                level = 20;
+                        }
+                        document.getElementById("level").innerHTML = level;
+                    });
+                </script>
+                <!-- No matter what value the exp_pts box is set to, it doesn't change the value of the level variable. 
+                    This will require experimentation.
+                    Method: Each case directly changes the level label's text
+                        i.e.
+                        case (305000 < exp && exp < 355000):
+                            document.getElementByID("level").innerHTML = 19;
+                    Something like that. Not sure yet.-->
+
+
+                @*<script id="calc_str_mod">
+                                        document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
+                                        document.getElementById("str_score").addEventListener("change", function(){
+                                            document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
+                                        });
+                </script>*@
+                <label id="level" class="control-label">Calculating...</label>
+            </div>
+            <br />
+            <div>
+                <label class="control-label">Ability Scores</label>
+
                 <table id="AbilityScores">
                     <thead>
                         <tr>
@@ -85,44 +164,98 @@
                     <tbody>
                         <tr>
                             <td><strong>STR</strong></td>
-                            <td><input asp-for="Strength" class="form-control" inputmode="numeric" id="str_txtbx"/></td>
-                            <td><p></p></td>
-                            <td><p>class prof</p></td>
+                            <td><input asp-for="Strength" class="form-control" inputmode="numeric" id="str_score" min="0" max="20" value="8" /></td>
+                            <td>
+                                <p id="str_mod">
+                                    <script id="calc_str_mod">
+                                        document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
+                                        document.getElementById("str_score").addEventListener("change", function(){
+                                            document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
+                                        });
+                                    </script>
+                                </p>
+                            </td>
+                            <td>@Html.CheckBox("Proficiency", false)</td>
                             <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>DEX</strong></td>
-                            <td><input asp-for="Dexterity" class="form-control" inputmode="numeric" /></td>
-                            <td><p>mod math</p></td>
-                            <td><p>class prof</p></td>
+                            <td><input asp-for="Dexterity" class="form-control" inputmode="numeric" id="dex_score" min="0" max="20" value="8" /></td>
+                            <td>
+                                <p id="dex_mod">
+                                    <script id="calc_dex_mod">
+                                        document.getElementById("dex_mod").innerHTML = Math.floor((document.getElementById("dex_score").value-10)/2);
+                                        document.getElementById("dex_score").addEventListener("change", function(){
+                                            document.getElementById("dex_mod").innerHTML = Math.floor((document.getElementById("dex_score").value-10)/2);
+                                        });
+                                    </script>
+                                </p>
+                            </td>
+                            <td>@Html.CheckBox("Proficiency", false)</td>
                             <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>CON</strong></td>
-                            <td><input asp-for="Constitution" class="form-control" inputmode="numeric" /></td>
-                            <td><p>mod math</p></td>
-                            <td><p>class prof</p></td>
+                            <td><input asp-for="Constitution" class="form-control" inputmode="numeric" id="con_score" min="0" max="20" value="8" /></td>
+                            <td>
+                                <p id="con_mod">
+                                    <script id="calc_con_mod">
+                                        document.getElementById("con_mod").innerHTML = Math.floor((document.getElementById("con_score").value-10)/2);
+                                        document.getElementById("con_score").addEventListener("change", function(){
+                                            document.getElementById("con_mod").innerHTML = Math.floor((document.getElementById("con_score").value-10)/2);
+                                        });
+                                    </script>
+                                </p>
+                            </td>
+                            <td>@Html.CheckBox("Proficiency", false)</td>
                             <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>INT</strong></td>
-                            <td><input asp-for="Intelligence" class="form-control" inputmode="numeric" /></td>
-                            <td><p>mod math</p></td>
-                            <td><p>class prof</p></td>
+                            <td><input asp-for="Intelligence" class="form-control" inputmode="numeric" id="int_score" min="0" max="20" value="8" /></td>
+                            <td>
+                                <p id="int_mod">
+                                    <script id="calc_int_mod">
+                                        document.getElementById("int_mod").innerHTML = Math.floor((document.getElementById("int_score").value-10)/2);
+                                        document.getElementById("int_score").addEventListener("change", function(){
+                                            document.getElementById("int_mod").innerHTML = Math.floor((document.getElementById("int_score").value-10)/2);
+                                        });
+                                    </script>
+                                </p>
+                            </td>
+                            <td>@Html.CheckBox("Proficiency", false)</td>
                             <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>WIS</strong></td>
-                            <td><input asp-for="Wisdom" class="form-control" inputmode="numeric" /></td>
-                            <td><p>mod math</p></td>
-                            <td><p>class prof</p></td>
+                            <td><input asp-for="Wisdom" class="form-control" inputmode="numeric" id="wis_score" min="0" max="20" value="8" /></td>
+                            <td>
+                                <p id="wis_mod">
+                                    <script id="calc_wis_mod">
+                                        document.getElementById("wis_mod").innerHTML = Math.floor((document.getElementById("wis_score").value-10)/2);
+                                        document.getElementById("wis_score").addEventListener("change", function(){
+                                            document.getElementById("wis_mod").innerHTML = Math.floor((document.getElementById("wis_score").value-10)/2);
+                                        });
+                                    </script>
+                                </p>
+                            </td>
+                            <td>@Html.CheckBox("Proficiency", false)</td>
                             <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>CHA</strong></td>
-                            <td><input asp-for="Charisma" class="form-control" inputmode="numeric" /></td>
-                            <td></td>
-                            <td><p>class prof</p></td>
+                            <td><input asp-for="Charisma" class="form-control" inputmode="numeric" id="cha_score" min="0" max="20" value="8" /></td>
+                            <td>
+                                <p id="cha_mod">
+                                    <script id="calc_cha_mod">
+                                        document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2);
+                                        document.getElementById("cha_score").addEventListener("change", function(){
+                                            document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2);
+                                        });
+                                    </script>
+                                </p>
+                            </td>
+                            <td>@Html.CheckBox("Proficiency", false)</td>
                             <td><p>save math</p></td>
                         </tr>
                     </tbody>
