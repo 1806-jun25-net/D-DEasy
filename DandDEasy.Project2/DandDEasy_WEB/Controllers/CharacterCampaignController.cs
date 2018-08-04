@@ -128,18 +128,51 @@ namespace DandDEasy_WEB.Controllers
         // POST: CharacterCampaign/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
+            var request = CreateRequestToService(HttpMethod.Post, $"api/characters/Delete/{id}");
+
             try
             {
-                // TODO: Add delete logic here
+                var response = await HttpClient.SendAsync(request);
 
-                return RedirectToAction(nameof(Index));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return View("unauthorized");
+                }
+
+                return RedirectToAction("Index", "CharacterCampaign");
             }
-            catch
+            catch (HttpRequestException ex)
             {
-                return View();
+                // logging
+                return View("Error");
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CampDelete(int id, IFormCollection collection)
+        {
+            var request = CreateRequestToService(HttpMethod.Post, $"api/campaigns/DeleteCampaign/{id}");
+
+            try
+            {
+                var response = await HttpClient.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return View("unauthorized");
+                }
+
+                return RedirectToAction("Index", "CharacterCampaign");
+            }
+            catch (HttpRequestException ex)
+            {
+                // logging
+                return View("Error");
+            }
+        }
+
     }
 }

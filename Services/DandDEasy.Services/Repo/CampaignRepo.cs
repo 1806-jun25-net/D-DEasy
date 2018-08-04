@@ -20,5 +20,13 @@ namespace DandDEasy.Services.Repo
             var campaign = _db.Campaign.ToList();
             return campaign;
         }
+
+        public void DeleteCampaign(int id)
+        {
+            var campaign = _db.Campaign.Find(id);
+            _db.Campaign.Remove(campaign);
+            _db.SaveChanges();
+
+        }
     }
 }

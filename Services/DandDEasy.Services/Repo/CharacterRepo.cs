@@ -50,6 +50,13 @@ namespace DandDEasy.Services.Repo
             return character;
         }
 
+        public void DeleteCharacterByID(int id) // get all character of user
+        {
+            var character = _db.Character.Find(id);
+            _db.Character.Remove(character);
+            _db.SaveChanges();
+        }
+
         public Character2 GetCharactertByID(int id) // get all character of user
         {
             var x = _db.Character.FirstOrDefault(y => y.Id == id);

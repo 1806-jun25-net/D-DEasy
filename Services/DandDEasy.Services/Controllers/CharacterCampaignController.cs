@@ -61,6 +61,7 @@ namespace DandDEasy.Services.Controllers
 
             IEnumerable<Campaign2> campaign2 = campaign.Select(x => new Campaign2
             {
+                Id = x.Id,
                 DungeonMasterId = x.DungeonMasterId,
                 Title = x.Title,
                 Password = x.Password,
