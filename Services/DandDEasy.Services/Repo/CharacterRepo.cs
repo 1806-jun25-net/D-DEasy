@@ -15,10 +15,31 @@ namespace DandDEasy.Services.Repo
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public IEnumerable<Character> GetCharactertable()
+        public IEnumerable<Character2> GetCharactertable()
         {
-            List<Character> character = _db.Character.ToList();
-            return character;
+            var character = _db.Character.ToList();
+            
+            IEnumerable<Character2> character2 = character.Select(x => new Character2
+            {
+                UserId = x.UserId,
+                Id = x.Id,
+                Name = x.Name,
+                Alignment = x.Alignment,
+                ArmorClass = x.ArmorClass,
+                Background = x.Background,
+                CampaignId = x.CampaignId,
+                Charisma = x.Charisma,
+                Constitution = x.Constitution,
+                CreationDate = x.CreationDate,
+                Dexterity = x.Dexterity,
+                Experience = x.Experience,
+                HitPoints = x.HitPoints,
+                Intelligence = x.Intelligence,
+                Race = x.Race,
+                Strength = x.Strength,
+                Wisdom = x.Wisdom
+            });
+            return character2;
         }
 
         public IEnumerable<Character> GetCharactertByID(string name, string password) // get all character of user

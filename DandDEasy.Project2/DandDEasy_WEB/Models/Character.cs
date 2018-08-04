@@ -32,5 +32,66 @@ namespace DandDEasy_WEB.Models
         public User User { get; set; }
         public CampaignGraveyard CampaignGraveyard { get; set; }
         public ICollection<CharacterClasses> CharacterClasses { get; set; }
+
+        public int CalculateModifier(int score)
+        {
+            int mod;
+            if(score%2 == 0)
+            {
+                mod = (score - 10) / 2;
+            } else
+            {
+                mod = (score - 11) / 2;
+            }
+            return mod;
+        }
+    }
+
+    public enum Backgrounds
+    {
+        GuildMerchant,
+        GuildArtisan,
+        Hermit,
+        Entertainer,
+        FolkHero,
+        Gladiator,
+        Charlatan,
+        Acolyte,
+        Criminal,
+        Noble,
+        Outlander,
+        Knight,
+        Sailor,
+        Soldier,
+        Spy,
+        Sage,
+        Pirate,
+        Urchin
+    }
+
+    public enum Races
+    {
+        Dragonborn,
+        Dwarf,
+        Elf,
+        Gnome,
+        HalfElf,
+        HalfOrc,
+        Halfling,
+        Human,
+        Tiefling
+    }
+
+    public enum Alignments
+    {
+        LawfulGood,
+        ChaoticGood,
+        NeutralGood,
+        LawfulNeutral,
+        TrueNeutral,
+        ChaoticNeutral,
+        NeutralEvil,
+        LawfulEvil,
+        ChaoticEvil
     }
 }

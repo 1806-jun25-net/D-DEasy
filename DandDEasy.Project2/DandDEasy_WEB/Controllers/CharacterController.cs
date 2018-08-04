@@ -16,15 +16,38 @@ namespace DandDEasy_WEB.Controllers
         public CharacterController(HttpClient httpClient) : base(httpClient)
         { }
         // GET: Character
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+
+            var request = CreateRequestToService(HttpMethod.Get, "api/Character/Index"); // go to API
+            try
+            {
+                var response = await HttpClient.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return View();
+                }
+
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                Character2 characterCampaigns = JsonConvert.DeserializeObject<Character2>(jsonString);
+
+                return View(characterCampaigns);
+            }
+            catch (HttpRequestException ex)
+            {
+                // logging
+                return View("Error");
+            }
+
+            //return View();
         }
 
         // GET: Character/Details/5
         public async Task<ActionResult> Details(int ChaID)
         {
-            int y = 1;
+            int y = ChaID;
             var request = CreateRequestToService(HttpMethod.Get, "api/Characters/Details", y); // go to API
 
             try
