@@ -26,9 +26,9 @@ namespace DandDEasy_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCam([Bind("Title", "Password")] Campaign campaign)
+        public async Task<IActionResult> CreateCam(Campaign campaign)
         {
-            var request = CreateRequestToService(HttpMethod.Get, "api/campaign/PostCampaign");
+            var request = CreateRequestToService(HttpMethod.Post, "api/Campaigns/PostCampaign", campaign);
 
             try
             {
@@ -39,15 +39,43 @@ namespace DandDEasy_WEB.Controllers
                     return View("unauthorized");
                 }
 
-
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "CharacterCampaign");
             }
             catch (HttpRequestException ex)
             {
                 return View("Error");
             }
+        }
 
+        public IActionResult DeleteCam(int id)
+        {
+            int ID = id;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteCam(Campaign campaign2)
+        {
+            int elid = campaign2.Id;
+            var request = CreateRequestToService(HttpMethod.Post, $"api/campaigns/DeleteCampaign/{elid}");
+
+            try
+            {
+                var response = await HttpClient.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return View("unauthorized");
+                }
+
+                return RedirectToAction("Index", "CharacterCampaign");
+            }
+            catch (HttpRequestException ex)
+            {
+                // logging
+                return View("Error");
+            }
         }
     }
 }

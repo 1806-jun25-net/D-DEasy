@@ -24,12 +24,42 @@ namespace DandDEasy.Services.Controllers
             Repo = repo;
         }
 
-        //// GET: Characters
-        //public async Task<IActionResult> Index()
+        //// GET: Characters/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
         //{
-        //    var dnDEasyContext = Repo.Character.Include(c => c.Campaign).Include(c => c.User);
-        //    return View(await dnDEasyContext.ToListAsync());
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var character = await Repo.Character
+        //        .Include(c => c.Campaign)
+        //        .Include(c => c.User)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (character == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(character);
         //}
+
+        // POST: Characters/Delete/5
+        //[HttpPost("{id}"), ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var character = await Repo.Character.FindAsync(id);
+        //    Repo.Character.Remove(character);
+        //    await Repo.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        [HttpPost("{id}")]
+        public void Delete(int id)
+        {
+            Repo.DeleteCharacterByID(id);
+        }
 
         // GET: Characters/Details/5
         [HttpGet("{id}")]
@@ -119,38 +149,7 @@ namespace DandDEasy.Services.Controllers
         //    ViewData["UserId"] = new SelectList(Repo.User, "Id", "Email", character.UserId);
         //    return View(character);
         //}
-
-        //// GET: Characters/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var character = await Repo.Character
-        //        .Include(c => c.Campaign)
-        //        .Include(c => c.User)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (character == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(character);
-        //}
-
-        //// POST: Characters/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var character = await Repo.Character.FindAsync(id);
-        //    Repo.Character.Remove(character);
-        //    await Repo.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
+        
         //private bool CharacterExists(int id)
         //{
         //    return Repo.Character.Any(e => e.Id == id);

@@ -11,7 +11,7 @@ using DandDEasy.Services.Repo;
 
 namespace DandDEasy.Services.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class CampaignsController : ControllerBase
@@ -92,13 +92,8 @@ namespace DandDEasy.Services.Controllers
 
         // POST: api/Campaigns
         [HttpPost]
-        public async Task<IActionResult> PostCampaign([FromBody] Campaign campaign)
+        public void PostCampaign(Campaign campaign)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             string name = "Wesley";
             var user = URepo.GetUsertable().FirstOrDefault(x => x.FirstName == name);
             var userid = user.Id;
@@ -106,30 +101,14 @@ namespace DandDEasy.Services.Controllers
             campaign.DungeonMasterId = user.Id;
 
             _context.Campaign.Add(campaign);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCampaign", new { id = campaign.Id }, campaign);
+            _context.SaveChanges();
         }
 
         // DELETE: api/Campaigns/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCampaign([FromRoute] int id)
+        [HttpPost("{elid}")]
+        public void DeleteCampaign(int elid)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var campaign = await _context.Campaign.FindAsync(id);
-            if (campaign == null)
-            {
-                return NotFound();
-            }
-
-            _context.Campaign.Remove(campaign);
-            await _context.SaveChangesAsync();
-
-            return Ok(campaign);
+            CRepo.DeleteCampaign(elid);
         }
 
         private bool CampaignExists(int id)

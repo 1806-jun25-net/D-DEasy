@@ -63,10 +63,10 @@
 </style>
 <body style="background-image: url(https://images3.alphacoders.com/152/152779.jpg);background-repeat: no-repeat;background-size: cover;">
     <div style="background-color: black; margin: 4% -2% 0% -2%">
-        <div style="border: inset; background-color: lightgray">
+        <div style="border: inset; background-color: white">
             <div align="center" style="background-image: url(http://kinderhooklibrary.org/wp-content/uploads/2017/09/dnd-logo.jpg);background-repeat: no-repeat;background-size: cover;width: 1050px;height: 300px; margin-left: 5%;"><h1 aligment="center" style="color: white;"></h1></div>
             <div>
-                <h2>Characters</h2>
+                <h2 style="margin-left: 43%">Characters</h2>
                 <table id="customers">
                     <thead>
                         <tr>
@@ -168,7 +168,7 @@
             </div>
             <div>
                 <div></div>
-                <h2>Campaign</h2>
+                <h2 style="margin-left: 43%">Campaign</h2>
                 <table id="customers">
                     <thead>
                         <tr>
@@ -188,7 +188,7 @@
                                 Creation Date
                             </th>
                             <th>
-
+                                Edits
                             </th>
                         </tr>
                     </thead>
@@ -212,9 +212,8 @@
                                     @Html.DisplayFor(modelItem => item.CreationDate)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    <a asp-controller="DungeonMaster" asp-action="Index" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-controller="Campaigns" asp-action="DeleteCam" asp-route-id="@item.Id">Delete</a>
                                 </td>
                             </tr>
                         }
