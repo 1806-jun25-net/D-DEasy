@@ -49,7 +49,7 @@ namespace DandDEasy_WEB.Models
             return total;
         }
 
-        public int[] rollStatArray()
+        public string rollStatArray()
         {
             var stats = new int[6];
             var rolls = new int[4];
@@ -62,7 +62,7 @@ namespace DandDEasy_WEB.Models
                 Array.Sort(rolls);
                 stats[i] = (rolls[3] + rolls[2] + rolls[1]);
             }
-            return stats;
+            return "Your rolls are: " + stats[0] + "|" + stats[1] + "|" + stats[2] + "|" + stats[3] + "|" + stats[4] + "|" + stats[5];
         }
     }
 

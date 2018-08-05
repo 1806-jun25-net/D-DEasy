@@ -118,12 +118,12 @@
                         else { lvlElement.value = 0; lvlElement.innerHTML = "ERROR: Incorrect input (Your experience cannot be negative!)"; }
 
                         // Checks level within the range for each proficiency increase; sets "prof" element value and innerHTML accordingly
-                        if(lvlElement.value < 5){ profElement.value = 2; profElement.innerHTML = "Proficiency: +" + profElement.value;}
+                        if(1 <= lvlElement.value && lvlElement.value < 5){ profElement.value = 2; profElement.innerHTML = "Proficiency: +" + profElement.value;}
                         else if(5 <= lvlElement.value && lvlElement.value < 9){ profElement.value = 3; profElement.innerHTML = "Proficiency: +" + profElement.value;}
                         else if(9 <= lvlElement.value && lvlElement.value < 13){ profElement.value = 4; profElement.innerHTML = "Proficiency: +" + profElement.value;}
                         else if(13 <= lvlElement.value && lvlElement.value < 17){ profElement.value = 5; profElement.innerHTML = "Proficiency: +" + profElement.value;}
                         else if(17 <= lvlElement.value){ profElement.value = 6; profElement.innerHTML = "Proficiency: +" + profElement.value;}
-                        else{profElement.value = 0; profElement.innerHTML = "Experience must be greater than 0";}
+                        else{profElement.value = 0; profElement.innerHTML = "";}
                     }
                 </script>
                 <label id="level" class="control-label" value="1">Level: 1</label>
@@ -132,7 +132,25 @@
             <br />
             <div class="col-md-4">
                 <label class="control-label">Ability Scores</label>
-                <input type="button" value="Roll for Stats" class="btn btn-default" />
+                <input type="button" value="Roll for Stats" class="btn btn-default" id="stats_btn" onclick="rollStatArray()"/>
+                <label id="stats_array" class="control-label"></label>
+                <script id="roll_stat_array">
+                    var statsArrayElement = document.getElementById("stats_array");
+
+                    function rollStatArray(){
+                        var stats = [];
+                        var rolls = [];
+                        for (var i = 0; i < 6; i++){
+                            for (var j = 0; j < 4; j++){
+                                rolls[j] = Math.floor((Math.random() * 6) + 1);
+                            }
+                            rolls.sort(function(a, b){return a - b});
+                            stats[i] = rolls[1] + rolls[2] + rolls[3];
+                            stats.sort(function(a, b){return a - b});
+                        }
+                        statsArrayElement.innerHTML = "Stats: | " + stats[0] + " | " + stats[1] + " | " + stats[2] + " | " + stats[3] + " | " + stats[4] + " | " + stats[5] + " |";
+                    }
+                </script>
                 <table id="AbilityScores">
                     <thead>
                         <tr>
@@ -253,6 +271,7 @@
                 </table>
             </div>
             <div class="col-md-8">
+                <label class="control-label">Classes by Level</label>
                 <table>
                     <thead>
 
