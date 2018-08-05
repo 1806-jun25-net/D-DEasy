@@ -113,4 +113,21 @@ namespace DandDEasy_WEB.Models
         LawfulEvil,
         ChaoticEvil
     }
+
+    public enum Classes
+    {
+        Barbarian,
+        Bard,
+        Cleric,
+        Druid,
+        Fighter,
+        Monk,
+        Paladin,
+        Ranger,
+        Rogue,
+        Sorcerer,
+        Warlock,
+        Wizard
+    }
+
 }
