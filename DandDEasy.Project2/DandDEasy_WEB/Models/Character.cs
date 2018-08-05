@@ -60,7 +60,7 @@ namespace DandDEasy_WEB.Models
                     rolls[j] = rollDie(6);
                 }
                 Array.Sort(rolls);
-                stats[0] = (rolls[3] + rolls[2] + rolls[1]);
+                stats[i] = (rolls[3] + rolls[2] + rolls[1]);
             }
             return stats;
         }
