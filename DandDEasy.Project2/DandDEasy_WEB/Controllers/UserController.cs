@@ -11,6 +11,7 @@ namespace DandDEasy_WEB.Controllers
 {
     public class UserController : AServiceController
     {
+
         public UserController(HttpClient httpClient) : base(httpClient)
         { }
 
