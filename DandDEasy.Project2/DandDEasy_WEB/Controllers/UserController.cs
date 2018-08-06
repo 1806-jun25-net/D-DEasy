@@ -46,7 +46,7 @@ namespace DandDEasy_WEB.Controllers
         public async Task<ActionResult> InsertUser(User credentials)
         {
 
-            var request = CreateRequestToService(HttpMethod.Post, "api/user/insertuser", credentials); // Call insert method in the API
+            var request = CreateRequestToService(HttpMethod.Post, "api/user/InsertUser", credentials); // Call insert method in the API
 
             try
             {

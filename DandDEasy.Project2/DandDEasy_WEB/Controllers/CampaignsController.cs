@@ -77,5 +77,10 @@ namespace DandDEasy_WEB.Controllers
                 return View("Error");
             }
         }
+
+        public void DGM()
+        {
+            Response.Redirect("http://localhost:4200/");
+        }
     }
 }
