@@ -13,23 +13,23 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-                    <label asp-for="UserId" class="control-label"></label>
-                    <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CampaignId" class="control-label"></label>
-                    <select asp-for="CampaignId" class ="form-control" asp-items="ViewBag.CampaignId"></select>
-                </div>*@
+            <label asp-for="UserId" class="control-label"></label>
+            <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="CampaignId" class="control-label"></label>
+            <select asp-for="CampaignId" class ="form-control" asp-items="ViewBag.CampaignId"></select>
+        </div>*@
             <div class="form-group form-inline">
                 <label asp-for="Name" class="control-label"><strong>What is your name?</strong></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                    <label asp-for="Race" class="control-label"></label>
-                    <input asp-for="Race" class="form-control" />
-                    <span asp-validation-for="Race" class="text-danger"></span>
-                </div>*@
+            <label asp-for="Race" class="control-label"></label>
+            <input asp-for="Race" class="form-control" />
+            <span asp-validation-for="Race" class="text-danger"></span>
+        </div>*@
             <div class="form-inline">
                 <div class="col-md-4">
                     <label asp-for="Race" class="control-label">What is your lineage?</label>
@@ -83,9 +83,11 @@
             <div class="form-inline">
                 <label asp-for="Experience" class="control-label">Experience Points:</label>
                 <input asp-for="Experience" class="form-control" inputmode="numeric" id="exp_pts" min="0" value="0" maxlength="10" />
+                <label id="level" class="control-label" value="1">Level: 1</label>
+                <label id="prof" class="control-label" value="2">Proficiency: +2</label>
                 <script id="calc_level">
                     exp = 0;
-                    document.addEventListener("load", calcStats);
+                    document.getElementById("prof").value = 2;
                     document.getElementById("exp_pts").addEventListener("keyup", calcStats);
                     document.getElementById("exp_pts").addEventListener("change", calcStats);
                     function calcStats(){
@@ -126,13 +128,11 @@
                         else{profElement.value = 0; profElement.innerHTML = "";}
                     }
                 </script>
-                <label id="level" class="control-label" value="1">Level: 1</label>
-                <label id="prof" class="control-label" value="2">Proficiency: +2</label>
             </div>
             <br />
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <label class="control-label">Ability Scores</label>
-                <input type="button" value="Roll for Stats" class="btn btn-default" id="stats_btn" onclick="rollStatArray()"/>
+                <input type="button" value="Roll for Stats" class="btn btn-default" id="stats_btn" onclick="rollStatArray()" />
                 <label id="stats_array" class="control-label"></label>
                 <script id="roll_stat_array">
                     var statsArrayElement = document.getElementById("stats_array");
@@ -166,126 +166,262 @@
                             <td><strong>STR</strong></td>
                             <td><input asp-for="Strength" class="form-control" inputmode="numeric" id="str_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="str_mod">
-                                    <script id="calc_str_mod">
-                                        document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
-                                        document.getElementById("str_score").addEventListener("change", calcStrMod);
-                                        document.getElementById("str_score").addEventListener("keyup", calcStrMod);
-                                        function calcStrMod(){
-                                            if(0 <= document.getElementById("str_score").innerHTML && document.getElementById("str_score").innerHTML <= 20){
-                                                document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
-                                            }
-                                            else
-                                            {
-                                                document.getElementById("str_score").innerHTML = "0";
-                                            }
+                                <p id="str_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="str_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="str_save">
+                                    <script>
+                                        document.getElementById("str_save").value = document.getElementById("str_mod").value;
+                                        document.getElementById("str_save").innerHTML = document.getElementById("str_save").value;
 
+                                        if(document.getElementById("str_prof").checked == true){
+                                            docuement.getElementById("str_save").innerHTML = "+" + (document.getElementById("str_mod").value + document.getElementById("prof").value);
                                         }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>DEX</strong></td>
                             <td><input asp-for="Dexterity" class="form-control" inputmode="numeric" id="dex_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="dex_mod">
-                                    <script id="calc_dex_mod">
-                                        document.getElementById("dex_mod").innerHTML = Math.floor((document.getElementById("dex_score").value-10)/2);
-                                        document.getElementById("dex_score").addEventListener("change", function(){
-                                            document.getElementById("dex_mod").innerHTML = Math.floor((document.getElementById("dex_score").value-10)/2);
-                                        });
+                                <p id="dex_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="dex_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="dex_save">
+                                    <script>
+                                        document.getElementById("dex_save").value = document.getElementById("dex_mod").value;
+                                        document.getElementById("dex_save").innerHTML = document.getElementById("dex_save").value;
+
+                                        if(document.getElementById("dex_prof").checked == true){
+                                            docuement.getElementById("dex_save").innerHTML = "+" + (document.getElementById("dex_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>CON</strong></td>
                             <td><input asp-for="Constitution" class="form-control" inputmode="numeric" id="con_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="con_mod">
-                                    <script id="calc_con_mod">
-                                        document.getElementById("con_mod").innerHTML = Math.floor((document.getElementById("con_score").value-10)/2);
-                                        document.getElementById("con_score").addEventListener("change", function(){
-                                            document.getElementById("con_mod").innerHTML = Math.floor((document.getElementById("con_score").value-10)/2);
-                                        });
+                                <p id="con_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="con_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="con_save">
+                                    <script>
+                                        document.getElementById("con_save").value = document.getElementById("con_mod").value;
+                                        document.getElementById("con_save").innerHTML = document.getElementById("con_save").value;
+
+                                        if(document.getElementById("con_prof").checked == true){
+                                            docuement.getElementById("con_save").innerHTML = "+" + (document.getElementById("con_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>INT</strong></td>
                             <td><input asp-for="Intelligence" class="form-control" inputmode="numeric" id="int_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="int_mod">
-                                    <script id="calc_int_mod">
-                                        document.getElementById("int_mod").innerHTML = Math.floor((document.getElementById("int_score").value-10)/2);
-                                        document.getElementById("int_score").addEventListener("change", function(){
-                                            document.getElementById("int_mod").innerHTML = Math.floor((document.getElementById("int_score").value-10)/2);
-                                        });
+                                <p id="int_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="int_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="int_save">
+                                    <script>
+                                        document.getElementById("int_save").value = document.getElementById("int_mod").value;
+                                        document.getElementById("int_save").innerHTML = document.getElementById("int_save").value;
+
+                                        if(document.getElementById("int_prof").checked == true){
+                                            docuement.getElementById("int_save").innerHTML = "+" + (document.getElementById("int_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>WIS</strong></td>
                             <td><input asp-for="Wisdom" class="form-control" inputmode="numeric" id="wis_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="wis_mod">
-                                    <script id="calc_wis_mod">
-                                        document.getElementById("wis_mod").innerHTML = Math.floor((document.getElementById("wis_score").value-10)/2);
-                                        document.getElementById("wis_score").addEventListener("change", function(){
-                                            document.getElementById("wis_mod").innerHTML = Math.floor((document.getElementById("wis_score").value-10)/2);
-                                        });
+                                <p id="wis_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="wis_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="wis_save">
+                                    <script>
+                                        document.getElementById("wis_save").value = document.getElementById("wis_mod").value;
+                                        document.getElementById("wis_save").innerHTML = document.getElementById("wis_save").value;
+
+                                        if(document.getElementById("wis_prof").checked == true){
+                                            docuement.getElementById("wis_save").innerHTML = "+" + (document.getElementById("wis_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>CHA</strong></td>
                             <td><input asp-for="Charisma" class="form-control" inputmode="numeric" id="cha_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="cha_mod">
-                                    <script id="calc_cha_mod">
-                                        document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2);
-                                        document.getElementById("cha_score").addEventListener("change", function(){
-                                            document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2);
-                                        });
+                                <p id="cha_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="cha_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="cha_save">
+                                    <script>
+                                        document.getElementById("cha_save").value = document.getElementById("cha_mod").value;
+                                        document.getElementById("cha_save").innerHTML = document.getElementById("cha_save").value;
+
+                                        if(document.getElementById("cha_prof").checked == true){
+                                            docuement.getElementById("cha_save").innerHTML = "+" + (document.getElementById("cha_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="col-md-8">
-                <label class="control-label">Classes by Level</label>
-                <table>
-                    <thead>
+                <input type="button" value="Recalculate" class="btn btn-default" id="recalc_all_btn" onclick="recalculateAllStats()" />
+                <script id="recalc_all">
+                    function recalculateAllStats(){
+                        recalculateStrength();
+                        recalculateDexterity();
+                        recalculateConstitution();
+                        recalculateIntelligence();
+                        recalculateWisdom();
+                        recalculateCharisma();
+                    }
+                    function recalculateStrength(){
+                        var strMod = Math.floor((document.getElementById("str_score").value-10)/2);
+                        document.getElementById("str_mod").value = strMod;
+                        var strProf = document.getElementById("str_prof").checked;
+                        var strSaveElement = document.getElementById("str_save");
+                        if(strMod > 0){ document.getElementById("str_mod").innerHTML = "+" + strMod; }
+                        else{ document.getElementById("str_mod").innerHTML = strMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(strProf == true){ strSaveElement.value = strMod + proficiency }
+                        else{ strSaveElement.value = strMod; }
 
-                    </thead>
-                </table>
+                        if(strSaveElement.value > 0){ strSaveElement.innerHTML = "+" + strSaveElement.value; }
+                        else{ strSaveElement.innerHTML = strSaveElement.value; }
+                    }
+                    function recalculateDexterity(){
+                        var dexMod = Math.floor((document.getElementById("dex_score").value-10)/2);
+                        document.getElementById("dex_mod").value = dexMod;
+                        var dexProf = document.getElementById("dex_prof").checked;
+                        var dexSaveElement = document.getElementById("dex_save");
+                        if(dexMod > 0){ document.getElementById("dex_mod").innerHTML = "+" + dexMod; }
+                        else{ document.getElementById("dex_mod").innerHTML = dexMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(dexProf == true){ dexSaveElement.value = dexMod + proficiency }
+                        else{ dexSaveElement.value = dexMod; }
+
+                        if(dexSaveElement.value > 0){ dexSaveElement.innerHTML = "+" + dexSaveElement.value; }
+                        else{ dexSaveElement.innerHTML = dexSaveElement.value; }
+                    }
+                    function recalculateConstitution(){
+                        var conMod = Math.floor((document.getElementById("con_score").value-10)/2);
+                        document.getElementById("con_mod").value = conMod;
+                        var conProf = document.getElementById("con_prof").checked;
+                        var conSaveElement = document.getElementById("con_save");
+                        if(conMod > 0){ document.getElementById("con_mod").innerHTML = "+" + conMod; }
+                        else{ document.getElementById("con_mod").innerHTML = conMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(conProf == true){ conSaveElement.value = conMod + proficiency }
+                        else{ conSaveElement.value = conMod; }
+
+                        if(conSaveElement.value > 0){ conSaveElement.innerHTML = "+" + conSaveElement.value; }
+                        else{ conSaveElement.innerHTML = conSaveElement.value; }
+                    }
+                    function recalculateIntelligence(){
+                        var intMod = Math.floor((document.getElementById("int_score").value-10)/2);
+                        document.getElementById("int_mod").value = intMod;
+                        var intProf = document.getElementById("int_prof").checked;
+                        var intSaveElement = document.getElementById("int_save");
+                        if(intMod > 0){ document.getElementById("int_mod").innerHTML = "+" + intMod; }
+                        else{ document.getElementById("int_mod").innerHTML = intMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(intProf == true){ intSaveElement.value = intMod + proficiency }
+                        else{ intSaveElement.value = intMod; }
+
+                        if(intSaveElement.value > 0){ intSaveElement.innerHTML = "+" + intSaveElement.value; }
+                        else{ intSaveElement.innerHTML = intSaveElement.value; }
+                    }
+                    function recalculateWisdom(){
+                        var wisMod = Math.floor((document.getElementById("wis_score").value-10)/2);
+                        document.getElementById("wis_mod").value = wisMod;
+                        var wisProf = document.getElementById("wis_prof").checked;
+                        var wisSaveElement = document.getElementById("wis_save");
+                        if(wisMod > 0){ document.getElementById("wis_mod").innerHTML = "+" + wisMod; }
+                        else{ document.getElementById("wis_mod").innerHTML = wisMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(wisProf == true){ wisSaveElement.value = wisMod + proficiency }
+                        else{ wisSaveElement.value = wisMod; }
+
+                        if(wisSaveElement.value > 0){ wisSaveElement.innerHTML = "+" + wisSaveElement.value; }
+                        else{ wisSaveElement.innerHTML = wisSaveElement.value; }
+                    }
+                    function recalculateCharisma(){
+                        var chaMod = Math.floor((document.getElementById("cha_score").value-10)/2);
+                        document.getElementById("cha_mod").value = chaMod;
+                        var chaProf = document.getElementById("cha_prof").checked;
+                        var chaSaveElement = document.getElementById("cha_save");
+                        if(chaMod > 0){ document.getElementById("cha_mod").innerHTML = "+" + chaMod; }
+                        else{ document.getElementById("cha_mod").innerHTML = chaMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(chaProf == true){ chaSaveElement.value = chaMod + proficiency }
+                        else{ chaSaveElement.value = chaMod; }
+
+                        if(chaSaveElement.value > 0){ chaSaveElement.innerHTML = "+" + chaSaveElement.value; }
+                        else{ chaSaveElement.innerHTML = chaSaveElement.value; }
+                    }
+                </script>
+
             </div>
+            <div class="col-md-4 form-inline">
+                <label class="control-label">Class</label>
+                @Html.DropDownList("Classes",
+                    new SelectList(Enum.GetValues(typeof(Classes))),
+                    "Select Class",
+                    new { @class = "form-control", @id = "first_class" })
+            </div>
+            <br/>
+            <input type="submit" value="Create" class="btn btn-default" />
+            <a asp-action="Index">Back to List</a>
         </form>
     </div>
 </div>
 
 
 <div>
-    <input type="submit" value="Create" class="btn btn-default" />
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {
