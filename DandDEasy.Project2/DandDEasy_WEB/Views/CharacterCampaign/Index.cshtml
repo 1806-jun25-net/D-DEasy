@@ -60,6 +60,8 @@
     }
 
 
+
+
 </style>
 <body style="background-image: url(https://images3.alphacoders.com/152/152779.jpg);background-repeat: no-repeat;background-size: cover;">
     <div style="background-color: black; margin: 4% -2% 0% -2%">
@@ -212,7 +214,7 @@
                                     @Html.DisplayFor(modelItem => item.CreationDate)
                                 </td>
                                 <td>
-                                    <a asp-controller="DungeonMaster" asp-action="Index" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-controller="Campaigns" asp-action="DGM">Host</a> |
                                     <a asp-controller="Campaigns" asp-action="DeleteCam" asp-route-id="@item.Id">Delete</a>
                                 </td>
                             </tr>
@@ -224,9 +226,7 @@
                         <input type="button" class="button button2" value="Create Campaign" onclick="location.href='@Url.Action("CreateCam", "Campaigns")'" />
                     </div>
                 </div>
-                <div>
-                    <a asp-action="Index">Back to List</a>
-                </div>
+
             </div>
         </div>
     </div>

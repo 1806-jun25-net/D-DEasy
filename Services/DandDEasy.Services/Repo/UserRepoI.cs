@@ -7,5 +7,8 @@ namespace DandDEasy.Services.Repo
 {
     interface UserRepoI
     {
+        IEnumerable<User> GetUsertable();
+
+        void InsertUser(User credentials);
     }
 }

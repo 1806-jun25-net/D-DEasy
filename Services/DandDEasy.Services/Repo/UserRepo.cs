@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DandDEasy.Services.Repo
 {
-    public class UserRepo
+    public class UserRepo : UserRepoI
     {
         private readonly DnDEasyContext _db;
 

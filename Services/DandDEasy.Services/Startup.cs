@@ -39,6 +39,7 @@ namespace DandDEasy.Services
             services.AddScoped<UserRepo>();
             services.AddScoped<CharacterRepo>();
             services.AddScoped<CampaignRepo>();
+            services.AddCors();
 
             services.AddDbContext<IdentityDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DnDAut"),
@@ -97,7 +98,13 @@ namespace DandDEasy.Services
             //{
             app.UseDeveloperExceptionPage();
             //}
-
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials();
+            });
             app.UseAuthentication();
             app.UseMvc();
         }
