@@ -7,6 +7,7 @@ namespace DandDEasy.Services.Repo
 {
     public class UserRepo : UserRepoI
     {
+        
         private readonly DnDEasyContext _db;
 
         public UserRepo(DnDEasyContext db)
