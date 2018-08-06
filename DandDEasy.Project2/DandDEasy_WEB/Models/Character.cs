@@ -32,6 +32,38 @@ namespace DandDEasy_WEB.Models
         public User User { get; set; }
         public CampaignGraveyard CampaignGraveyard { get; set; }
         public ICollection<CharacterClasses> CharacterClasses { get; set; }
+
+        public int rollDie(int faces)
+        {
+            Random roll = new Random();
+            return roll.Next(1, faces+1);
+        }
+
+        public int rollDice(int count, int face)
+        {
+            int total = 0;
+            for(int i = 0; i < count; i++)
+            {
+                total += rollDie(face);
+            }
+            return total;
+        }
+
+        public string rollStatArray()
+        {
+            var stats = new int[6];
+            var rolls = new int[4];
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    rolls[j] = rollDie(6);
+                }
+                Array.Sort(rolls);
+                stats[i] = (rolls[3] + rolls[2] + rolls[1]);
+            }
+            return "Your rolls are: " + stats[0] + "|" + stats[1] + "|" + stats[2] + "|" + stats[3] + "|" + stats[4] + "|" + stats[5];
+        }
     }
 
     public enum Backgrounds
@@ -81,4 +113,21 @@ namespace DandDEasy_WEB.Models
         LawfulEvil,
         ChaoticEvil
     }
+
+    public enum Classes
+    {
+        Barbarian,
+        Bard,
+        Cleric,
+        Druid,
+        Fighter,
+        Monk,
+        Paladin,
+        Ranger,
+        Rogue,
+        Sorcerer,
+        Warlock,
+        Wizard
+    }
+
 }

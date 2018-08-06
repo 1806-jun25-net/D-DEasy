@@ -4,13 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<script>
-    function calcChaMod()
-    {
-        document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2)
-    }
 
-</script>
 
 <h2>Character Creation</h2>
 <hr />
@@ -26,7 +20,7 @@
             <label asp-for="CampaignId" class="control-label"></label>
             <select asp-for="CampaignId" class ="form-control" asp-items="ViewBag.CampaignId"></select>
         </div>*@
-            <div class="form-group">
+            <div class="form-group form-inline">
                 <label asp-for="Name" class="control-label"><strong>What is your name?</strong></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -37,106 +31,126 @@
             <span asp-validation-for="Race" class="text-danger"></span>
         </div>*@
             <div class="form-inline">
-                <label asp-for="Race" class="control-label">What is your lineage?</label>
-                @Html.DropDownList("Race",
-                 new SelectList(Enum.GetValues(typeof(Races))),
-                 "Select Race",
-                 new { @class = "form-control" })
-                <br />
-                <p>
-                    Every race has a unique origin, and each one provides
-                    your character with additional strengths and weaknesses based on both your racial culture and
-                    the biological makeup of the race, such as Dragonborn having a breath attack or High Elves knowing
-                    one spell of their choosing, regardless of whether or not they are a caster.
-                </p>
+                <div class="col-md-4">
+                    <label asp-for="Race" class="control-label">What is your lineage?</label>
+                    @Html.DropDownList("Race",
+                     new SelectList(Enum.GetValues(typeof(Races))),
+                     "Select Race",
+                     new { @class = "form-control" })
+                    <br />
+                    <p>
+                        Every race has a unique origin, and each one provides your character with additional strengths and
+                        weaknesses based on both your racial culture and the biological makeup of the race, such as
+                        Dragonborn having a breath attack or High Elves knowing one spell of their choosing, regardless of
+                        whether or not they are a caster. Your race can also determine some of the details regarding your
+                        character's personal history.
+                    </p>
 
-            </div>
-            <br />
-            <div class="form-inline">
-                <label asp-for="Background" class="control-label">What is your background?</label>
-                @Html.DropDownList("Background",
-                 new SelectList(Enum.GetValues(typeof(Backgrounds))),
-                 "Select Background",
-                 new { @class = "form-control" })
-                <br />
-                <p>
-                    Your character's background typically involves
-                    what they used to do prior to their adventures. Were they once a proud noble, a seasoned
-                    veteran, a mischevious charlatan, or a devious criminal?
-                </p>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Background" class="control-label">What is your background?</label>
+                    @Html.DropDownList("Background",
+                     new SelectList(Enum.GetValues(typeof(Backgrounds))),
+                     "Select Background",
+                     new { @class = "form-control" })
+                    <br />
+                    <p>
+                        Your character's background typically involves what they used to do prior to their adventures.
+                        Were they once a proud noble, a seasoned veteran, a mischevious charlatan, or a devious criminal?
+                        Backgrounds often provide insights into your character's motives, and while their identity is up
+                        to you, backgrounds can help new players understand what drives their character.
+                    </p>
 
-            </div>
-            <br />
-            <div class="form-inline">
-                <label asp-for="Alignment" class="control-label">What is your alignment?</label>
-                @Html.DropDownList("Alignment",
-                 new SelectList(Enum.GetValues(typeof(Alignments))),
-                 "Select Alignment",
-                 new { @class = "form-control" })
-                <br />
-                <p>
-                    Your alignment is determined by your character's behavior (not the other way around!).
-                    These alignments are on a two-dimensional spectrum, so you choose where you fall.
-                    Chaotic means you're more likely to do as you need, lawful means you abide by a code of
-                    some sort (law or personal creed), and neutral means you tend to do, typically, what's in
-                    your best interest. Good, neutral and evil are pretty self-explanatory.
-                </p>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Alignment" class="control-label">What is your alignment?</label>
+                    @Html.DropDownList("Alignment",
+                     new SelectList(Enum.GetValues(typeof(Alignments))),
+                     "Select Alignment",
+                     new { @class = "form-control" })
+                    <br />
+                    <p>
+                        Your alignment is determined by your character's behavior (not the other way around!).
+                        These alignments are on a two-dimensional spectrum, so you choose where you fall.
+                        Chaotic means you're more likely to do as you need, lawful means you abide by a code of
+                        some sort (law or personal creed), and neutral means you tend to do, typically, what's in
+                        your best interest. Good, neutral and evil are pretty self-explanatory.
+                    </p>
 
+                </div>
             </div>
             <br />
             <div class="form-inline">
                 <label asp-for="Experience" class="control-label">Experience Points:</label>
-                <input asp-for="Experience" class="form-control" inputmode="numeric" id="exp_pts" min="0" value="0" maxlength="10" onkeyup="calc_level" onchange="calc_level" />
+                <input asp-for="Experience" class="form-control" inputmode="numeric" id="exp_pts" min="0" value="0" maxlength="10" />
+                <label id="level" class="control-label" value="1">Level: 1</label>
+                <label id="prof" class="control-label" value="2">Proficiency: +2</label>
                 <script id="calc_level">
                     exp = 0;
+                    document.getElementById("prof").value = 2;
                     document.getElementById("exp_pts").addEventListener("keyup", calcStats);
                     document.getElementById("exp_pts").addEventListener("change", calcStats);
                     function calcStats(){
+                        // get the experience input
                         exp = document.getElementById("exp_pts").value;
-                        //I was not able to get a switch-case to work for this. I would like to have this also show proficiency by level
-                        // so I can get that information directly for the saving throw proficiencies.
-                        //document.getElementById("level").innerHTML = exp;
-                        if (0 <= exp && exp < 300){ document.getElementById("level").innerHTML = "Level: 1"; }
-                        else if (300 <= exp && exp < 900){ document.getElementById("level").innerHTML = "Level: 2"; }
-                        else if (900 <= exp && exp < 2700){ document.getElementById("level").innerHTML = "Level: 3"; }
-                        else if (2700 <= exp && exp < 6500){ document.getElementById("level").innerHTML = "Level: 4"; }
-                        else if (6500 <= exp && exp < 14000){ document.getElementById("level").innerHTML = "Level: 5"; }
-                        else if (14000 <= exp && exp < 23000){ document.getElementById("level").innerHTML = "Level: 6"; }
-                        else if (23000 <= exp && exp < 34000){ document.getElementById("level").innerHTML = "Level: 7"; }
-                        else if (34000 <= exp && exp < 48000){ document.getElementById("level").innerHTML = "Level: 8"; }
-                        else if (48000 <= exp && exp < 64000){ document.getElementById("level").innerHTML = "Level: 9"; }
-                        else if (64000 <= exp && exp < 85000){ document.getElementById("level").innerHTML = "Level: 10"; }
-                        else if (85000 <= exp && exp < 100000){ document.getElementById("level").innerHTML = "Level: 11"; }
-                        else if (100000 <= exp && exp < 120000){ document.getElementById("level").innerHTML = "Level: 12"; }
-                        else if (120000 <= exp && exp < 140000){ document.getElementById("level").innerHTML = "Level: 13"; }
-                        else if (140000 <= exp && exp < 165000){ document.getElementById("level").innerHTML = "Level: 14"; }
-                        else if (165000 <= exp && exp < 195000){ document.getElementById("level").innerHTML = "Level: 15"; }
-                        else if (195000 <= exp && exp < 225000){ document.getElementById("level").innerHTML = "Level: 16"; }
-                        else if (225000 <= exp && exp < 265000){ document.getElementById("level").innerHTML = "Level: 17"; }
-                        else if (265000 <= exp && exp < 305000){ document.getElementById("level").innerHTML = "Level: 18"; }
-                        else if (305000 <= exp && exp < 355000){ document.getElementById("level").innerHTML = "Level: 19"; }
-                        else if (355000 <= exp){ document.getElementById("level").innerHTML = "Level: 20"; }
-                        else { document.getElementById("level").innerHTML = "ERROR: Incorrect input"; }
+                        // create direct references to "level" and "prof" elements
+                        lvlElement = document.getElementById("level");
+                        profElement = document.getElementById("prof");
+                        // Checks exp within the range for each level; sets "level" element value and innerHTML accordingly
+                        if (0 <= exp && exp < 300){ lvlElement.value = 1; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (300 <= exp && exp < 900){ lvlElement.value = 2; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (900 <= exp && exp < 2700){ lvlElement.value = 3; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (2700 <= exp && exp < 6500){ lvlElement.value = 4; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (6500 <= exp && exp < 14000){ lvlElement.value = 5; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (14000 <= exp && exp < 23000){ lvlElement.value = 6; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (23000 <= exp && exp < 34000){ lvlElement.value = 7; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (34000 <= exp && exp < 48000){ lvlElement.value = 8; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (48000 <= exp && exp < 64000){ lvlElement.value = 9; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (64000 <= exp && exp < 85000){ lvlElement.value = 10; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (85000 <= exp && exp < 100000){ lvlElement.value = 11; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (100000 <= exp && exp < 120000){ lvlElement.value = 12; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (120000 <= exp && exp < 140000){ lvlElement.value = 13; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (140000 <= exp && exp < 165000){ lvlElement.value = 14; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (165000 <= exp && exp < 195000){ lvlElement.value = 15; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (195000 <= exp && exp < 225000){ lvlElement.value = 16; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (225000 <= exp && exp < 265000){ lvlElement.value = 17; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (265000 <= exp && exp < 305000){ lvlElement.value = 18; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (305000 <= exp && exp < 355000){ lvlElement.value = 19; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else if (355000 <= exp){ lvlElement.value = 20; lvlElement.innerHTML = "Level: " + lvlElement.value;}
+                        else { lvlElement.value = 0; lvlElement.innerHTML = "ERROR: Incorrect input (Your experience cannot be negative!)"; }
+
+                        // Checks level within the range for each proficiency increase; sets "prof" element value and innerHTML accordingly
+                        if(1 <= lvlElement.value && lvlElement.value < 5){ profElement.value = 2; profElement.innerHTML = "Proficiency: +" + profElement.value;}
+                        else if(5 <= lvlElement.value && lvlElement.value < 9){ profElement.value = 3; profElement.innerHTML = "Proficiency: +" + profElement.value;}
+                        else if(9 <= lvlElement.value && lvlElement.value < 13){ profElement.value = 4; profElement.innerHTML = "Proficiency: +" + profElement.value;}
+                        else if(13 <= lvlElement.value && lvlElement.value < 17){ profElement.value = 5; profElement.innerHTML = "Proficiency: +" + profElement.value;}
+                        else if(17 <= lvlElement.value){ profElement.value = 6; profElement.innerHTML = "Proficiency: +" + profElement.value;}
+                        else{profElement.value = 0; profElement.innerHTML = "";}
                     }
-                    //switch(document.getElementById("level").innerHTML.value){
-                    
                 </script>
-                
-                <!-- No matter what value the exp_pts box is set to, it doesn't change the value of the level variable.
-        This will require experimentation.
-        Method: Each case directly changes the level label's text
-            i.e.
-            case (305000 < exp && exp < 355000):
-                document.getElementByID("level").innerHTML = 19;
-        Something like that. Not sure yet.-->
-                
-                <label id="level" class="control-label">Calculating...</label>
-                <label id="prof" class="control-label"></label>
             </div>
             <br />
-            <div>
+            <div class="col-md-8">
                 <label class="control-label">Ability Scores</label>
+                <input type="button" value="Roll for Stats" class="btn btn-default" id="stats_btn" onclick="rollStatArray()" />
+                <label id="stats_array" class="control-label"></label>
+                <script id="roll_stat_array">
+                    var statsArrayElement = document.getElementById("stats_array");
 
+                    function rollStatArray(){
+                        var stats = [];
+                        var rolls = [];
+                        for (var i = 0; i < 6; i++){
+                            for (var j = 0; j < 4; j++){
+                                rolls[j] = Math.floor((Math.random() * 6) + 1);
+                            }
+                            rolls.sort(function(a, b){return a - b});
+                            stats[i] = rolls[1] + rolls[2] + rolls[3];
+                            stats.sort(function(a, b){return a - b});
+                        }
+                        statsArrayElement.innerHTML = "Stats: | " + stats[0] + " | " + stats[1] + " | " + stats[2] + " | " + stats[3] + " | " + stats[4] + " | " + stats[5] + " |";
+                    }
+                </script>
                 <table id="AbilityScores">
                     <thead>
                         <tr>
@@ -152,118 +166,262 @@
                             <td><strong>STR</strong></td>
                             <td><input asp-for="Strength" class="form-control" inputmode="numeric" id="str_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="str_mod">
-                                    <script id="calc_str_mod">
-                                        document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
-                                        document.getElementById("str_score").addEventListener("change", calcStrMod);
-                                        document.getElementById("str_score").addEventListener("keyup", calcStrMod);
-                                        function calcStrMod(){
-                                            if(0 <= document.getElementById("str_score").innerHTML && document.getElementById("str_score").innerHTML <= 20){
-                                                document.getElementById("str_mod").innerHTML = Math.floor((document.getElementById("str_score").value-10)/2);
-                                            }
-                                            else
-                                            {
-                                                document.getElementById("str_score").innerHTML = "0";
-                                            }
+                                <p id="str_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="str_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="str_save">
+                                    <script>
+                                        document.getElementById("str_save").value = document.getElementById("str_mod").value;
+                                        document.getElementById("str_save").innerHTML = document.getElementById("str_save").value;
 
+                                        if(document.getElementById("str_prof").checked == true){
+                                            docuement.getElementById("str_save").innerHTML = "+" + (document.getElementById("str_mod").value + document.getElementById("prof").value);
                                         }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>DEX</strong></td>
                             <td><input asp-for="Dexterity" class="form-control" inputmode="numeric" id="dex_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="dex_mod">
-                                    <script id="calc_dex_mod">
-                                        document.getElementById("dex_mod").innerHTML = Math.floor((document.getElementById("dex_score").value-10)/2);
-                                        document.getElementById("dex_score").addEventListener("change", function(){
-                                            document.getElementById("dex_mod").innerHTML = Math.floor((document.getElementById("dex_score").value-10)/2);
-                                        });
+                                <p id="dex_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="dex_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="dex_save">
+                                    <script>
+                                        document.getElementById("dex_save").value = document.getElementById("dex_mod").value;
+                                        document.getElementById("dex_save").innerHTML = document.getElementById("dex_save").value;
+
+                                        if(document.getElementById("dex_prof").checked == true){
+                                            docuement.getElementById("dex_save").innerHTML = "+" + (document.getElementById("dex_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>CON</strong></td>
                             <td><input asp-for="Constitution" class="form-control" inputmode="numeric" id="con_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="con_mod">
-                                    <script id="calc_con_mod">
-                                        document.getElementById("con_mod").innerHTML = Math.floor((document.getElementById("con_score").value-10)/2);
-                                        document.getElementById("con_score").addEventListener("change", function(){
-                                            document.getElementById("con_mod").innerHTML = Math.floor((document.getElementById("con_score").value-10)/2);
-                                        });
+                                <p id="con_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="con_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="con_save">
+                                    <script>
+                                        document.getElementById("con_save").value = document.getElementById("con_mod").value;
+                                        document.getElementById("con_save").innerHTML = document.getElementById("con_save").value;
+
+                                        if(document.getElementById("con_prof").checked == true){
+                                            docuement.getElementById("con_save").innerHTML = "+" + (document.getElementById("con_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>INT</strong></td>
                             <td><input asp-for="Intelligence" class="form-control" inputmode="numeric" id="int_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="int_mod">
-                                    <script id="calc_int_mod">
-                                        document.getElementById("int_mod").innerHTML = Math.floor((document.getElementById("int_score").value-10)/2);
-                                        document.getElementById("int_score").addEventListener("change", function(){
-                                            document.getElementById("int_mod").innerHTML = Math.floor((document.getElementById("int_score").value-10)/2);
-                                        });
+                                <p id="int_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="int_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="int_save">
+                                    <script>
+                                        document.getElementById("int_save").value = document.getElementById("int_mod").value;
+                                        document.getElementById("int_save").innerHTML = document.getElementById("int_save").value;
+
+                                        if(document.getElementById("int_prof").checked == true){
+                                            docuement.getElementById("int_save").innerHTML = "+" + (document.getElementById("int_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>WIS</strong></td>
                             <td><input asp-for="Wisdom" class="form-control" inputmode="numeric" id="wis_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="wis_mod">
-                                    <script id="calc_wis_mod">
-                                        document.getElementById("wis_mod").innerHTML = Math.floor((document.getElementById("wis_score").value-10)/2);
-                                        document.getElementById("wis_score").addEventListener("change", function(){
-                                            document.getElementById("wis_mod").innerHTML = Math.floor((document.getElementById("wis_score").value-10)/2);
-                                        });
+                                <p id="wis_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="wis_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="wis_save">
+                                    <script>
+                                        document.getElementById("wis_save").value = document.getElementById("wis_mod").value;
+                                        document.getElementById("wis_save").innerHTML = document.getElementById("wis_save").value;
+
+                                        if(document.getElementById("wis_prof").checked == true){
+                                            docuement.getElementById("wis_save").innerHTML = "+" + (document.getElementById("wis_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                         <tr>
                             <td><strong>CHA</strong></td>
                             <td><input asp-for="Charisma" class="form-control" inputmode="numeric" id="cha_score" min="0" max="20" value="8" /></td>
                             <td>
-                                <p id="cha_mod">
-                                    <script id="calc_cha_mod">
-                                        document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2);
-                                        document.getElementById("cha_score").addEventListener("change", function(){
-                                            document.getElementById("cha_mod").innerHTML = Math.floor((document.getElementById("cha_score").value-10)/2);
-                                        });
+                                <p id="cha_mod" align="center"></p>
+                            </td>
+                            <td>
+                                <p align="center">
+                                    <input type="checkbox" id="cha_prof" />
+                                </p>
+                            </td>
+                            <td>
+                                <p id="cha_save">
+                                    <script>
+                                        document.getElementById("cha_save").value = document.getElementById("cha_mod").value;
+                                        document.getElementById("cha_save").innerHTML = document.getElementById("cha_save").value;
+
+                                        if(document.getElementById("cha_prof").checked == true){
+                                            docuement.getElementById("cha_save").innerHTML = "+" + (document.getElementById("cha_mod").value + document.getElementById("prof").value);
+                                        }
                                     </script>
                                 </p>
                             </td>
-                            <td>@Html.CheckBox("Proficiency", false)</td>
-                            <td><p>save math</p></td>
                         </tr>
                     </tbody>
                 </table>
+                <input type="button" value="Recalculate" class="btn btn-default" id="recalc_all_btn" onclick="recalculateAllStats()" />
+                <script id="recalc_all">
+                    function recalculateAllStats(){
+                        recalculateStrength();
+                        recalculateDexterity();
+                        recalculateConstitution();
+                        recalculateIntelligence();
+                        recalculateWisdom();
+                        recalculateCharisma();
+                    }
+                    function recalculateStrength(){
+                        var strMod = Math.floor((document.getElementById("str_score").value-10)/2);
+                        document.getElementById("str_mod").value = strMod;
+                        var strProf = document.getElementById("str_prof").checked;
+                        var strSaveElement = document.getElementById("str_save");
+                        if(strMod > 0){ document.getElementById("str_mod").innerHTML = "+" + strMod; }
+                        else{ document.getElementById("str_mod").innerHTML = strMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(strProf == true){ strSaveElement.value = strMod + proficiency }
+                        else{ strSaveElement.value = strMod; }
+
+                        if(strSaveElement.value > 0){ strSaveElement.innerHTML = "+" + strSaveElement.value; }
+                        else{ strSaveElement.innerHTML = strSaveElement.value; }
+                    }
+                    function recalculateDexterity(){
+                        var dexMod = Math.floor((document.getElementById("dex_score").value-10)/2);
+                        document.getElementById("dex_mod").value = dexMod;
+                        var dexProf = document.getElementById("dex_prof").checked;
+                        var dexSaveElement = document.getElementById("dex_save");
+                        if(dexMod > 0){ document.getElementById("dex_mod").innerHTML = "+" + dexMod; }
+                        else{ document.getElementById("dex_mod").innerHTML = dexMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(dexProf == true){ dexSaveElement.value = dexMod + proficiency }
+                        else{ dexSaveElement.value = dexMod; }
+
+                        if(dexSaveElement.value > 0){ dexSaveElement.innerHTML = "+" + dexSaveElement.value; }
+                        else{ dexSaveElement.innerHTML = dexSaveElement.value; }
+                    }
+                    function recalculateConstitution(){
+                        var conMod = Math.floor((document.getElementById("con_score").value-10)/2);
+                        document.getElementById("con_mod").value = conMod;
+                        var conProf = document.getElementById("con_prof").checked;
+                        var conSaveElement = document.getElementById("con_save");
+                        if(conMod > 0){ document.getElementById("con_mod").innerHTML = "+" + conMod; }
+                        else{ document.getElementById("con_mod").innerHTML = conMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(conProf == true){ conSaveElement.value = conMod + proficiency }
+                        else{ conSaveElement.value = conMod; }
+
+                        if(conSaveElement.value > 0){ conSaveElement.innerHTML = "+" + conSaveElement.value; }
+                        else{ conSaveElement.innerHTML = conSaveElement.value; }
+                    }
+                    function recalculateIntelligence(){
+                        var intMod = Math.floor((document.getElementById("int_score").value-10)/2);
+                        document.getElementById("int_mod").value = intMod;
+                        var intProf = document.getElementById("int_prof").checked;
+                        var intSaveElement = document.getElementById("int_save");
+                        if(intMod > 0){ document.getElementById("int_mod").innerHTML = "+" + intMod; }
+                        else{ document.getElementById("int_mod").innerHTML = intMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(intProf == true){ intSaveElement.value = intMod + proficiency }
+                        else{ intSaveElement.value = intMod; }
+
+                        if(intSaveElement.value > 0){ intSaveElement.innerHTML = "+" + intSaveElement.value; }
+                        else{ intSaveElement.innerHTML = intSaveElement.value; }
+                    }
+                    function recalculateWisdom(){
+                        var wisMod = Math.floor((document.getElementById("wis_score").value-10)/2);
+                        document.getElementById("wis_mod").value = wisMod;
+                        var wisProf = document.getElementById("wis_prof").checked;
+                        var wisSaveElement = document.getElementById("wis_save");
+                        if(wisMod > 0){ document.getElementById("wis_mod").innerHTML = "+" + wisMod; }
+                        else{ document.getElementById("wis_mod").innerHTML = wisMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(wisProf == true){ wisSaveElement.value = wisMod + proficiency }
+                        else{ wisSaveElement.value = wisMod; }
+
+                        if(wisSaveElement.value > 0){ wisSaveElement.innerHTML = "+" + wisSaveElement.value; }
+                        else{ wisSaveElement.innerHTML = wisSaveElement.value; }
+                    }
+                    function recalculateCharisma(){
+                        var chaMod = Math.floor((document.getElementById("cha_score").value-10)/2);
+                        document.getElementById("cha_mod").value = chaMod;
+                        var chaProf = document.getElementById("cha_prof").checked;
+                        var chaSaveElement = document.getElementById("cha_save");
+                        if(chaMod > 0){ document.getElementById("cha_mod").innerHTML = "+" + chaMod; }
+                        else{ document.getElementById("cha_mod").innerHTML = chaMod; }
+                        var proficiency = document.getElementById("prof").value;
+                        if(chaProf == true){ chaSaveElement.value = chaMod + proficiency }
+                        else{ chaSaveElement.value = chaMod; }
+
+                        if(chaSaveElement.value > 0){ chaSaveElement.innerHTML = "+" + chaSaveElement.value; }
+                        else{ chaSaveElement.innerHTML = chaSaveElement.value; }
+                    }
+                </script>
+
             </div>
+            <div class="col-md-4 form-inline">
+                <label class="control-label">Class</label>
+                @Html.DropDownList("Classes",
+                    new SelectList(Enum.GetValues(typeof(Classes))),
+                    "Select Class",
+                    new { @class = "form-control", @id = "first_class" })
+            </div>
+            <br/>
             <input type="submit" value="Create" class="btn btn-default" />
+            <a asp-action="Index">Back to List</a>
         </form>
     </div>
-    
 </div>
 
+
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {
